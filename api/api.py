@@ -36,8 +36,8 @@ def insert():
     # Type Checking
     if 'date' not in args:
         return "'date' field is required"
-    elif re.match("^\d\d\d\d/\d\d\/\d\d$", str(args['date'])):
-        return "date must look like: 'YYYY/MM/DD'"
+    elif re.match("^\d\d\d\d\-\d\d\-\d\d$", str(args['date'])):
+        return "date must look like: 'YYYY-MM-DD'"
     if 'quarter' not in args:
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
     elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
@@ -90,6 +90,8 @@ def find_by_quarter(quarter):
 def remove():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
+    if len(args) == 0:
+        return "Must specify a criteria to delete by!"
     match = {'$and': []}
     for key, value in args.items():
         match['$and'].append({key: value})
@@ -122,7 +124,7 @@ def write_comment(quarter):
     comments = []
     if 'comments' in cursor[0]:
         comments = cursor[0]['comments']
-    now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comments.append({'body': args['body'], 
                      'author': args['author'],
                      'timestamp': now})
