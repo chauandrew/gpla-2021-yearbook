@@ -56,8 +56,8 @@ def insert():
     # Type Checking
     if 'date' not in args:
         return "'date' field is required"
-    elif re.match("^\d\d\d\d\-\d\d\-\d\d$", str(args['date'])):
-        return "date must look like: 'YYYY-MM-DD'"
+    elif not re.match("^\d\d\d\d/\d\d/\d\d$", str(args['date'])):
+        return "date must look like: 'YYYY/MM/DD'"
     if 'quarter' not in args:
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
     elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
