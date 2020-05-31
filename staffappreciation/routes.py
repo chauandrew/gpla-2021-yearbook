@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, make_response
 from flask_pymongo import PyMongo
 import pymongo
 
@@ -27,6 +27,26 @@ def parse_input(args):
         if isinstance(v, list) and len(v) == 1:
             args[k] = v[0]
     return args
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/feed/<quarter>")
+def feed(quarter):
+    print(quarter)
+    if quarter not in ['fall', 'winter', 'spring']:
+        return("404")
+    return render_template(f"{quarter}.html")
+
+@app.route("/juniors")
+def juniors():
+    return render_template("juniors.html")
+
+@app.route("/sharings/<name>")
+def sharings(name):
+    return render_template(f"sharings/{name}.html")
+
 
 # Insert a post into the database
 @app.route("/insert", methods=['POST'])
