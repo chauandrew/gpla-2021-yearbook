@@ -3,6 +3,6 @@
 service mongodb start
 pkill python
 source ~/staffappreciation/flask/bin/activate
-python ~/staffappreciation/api/api.py 1> ~/staffappreciation/api/log.log 2> ~/staffappreciation/api/log.log & echo "Done"
+python ~/staffappreciation/staffappreciation/routes.py 1> ~/staffappreciation/log/log.log 2> ~/staffappreciation/log/log.log & echo "Done"
 
 
