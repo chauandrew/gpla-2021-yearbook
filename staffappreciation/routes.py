@@ -29,6 +29,7 @@ def parse_input(args):
     return args
 
 @app.route("/")
+@app.route("/index")
 def index():
     return render_template("index.html")
 

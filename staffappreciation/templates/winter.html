@@ -12,7 +12,7 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
 
   <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style>
     .bd-placeholder-img {
@@ -31,46 +31,11 @@
     }
   </style>
   <!-- Custom styles for this template -->
-  <link href="css/carousel.css" rel="stylesheet">
+  <link href="/static/css/carousel.css" rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="index.html"><img src="images/a2flogo_cropped.png" alt="A2F Logo" height="50"></a>
-      <!-- <span class="navbar-brand"><img src="images/a2flogo_cropped.png" alt="A2F Logo" height="50"></span> -->
-      <!-- <a class="navbar-brand" href="#">Fall</a> -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="fall.html">Fall</a></li>
-          <li class="nav-item active"><a class="nav-link" href="winter.html">Winter</a></li>
-          <li class="nav-item"><a class="nav-link" href="spring.html">Spring</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sharings
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="sharings/Bobsharings.html">Bob</a>
-              <a class="dropdown-item" href="sharings/Jocsharings.html">Jocelyn</a>
-              <a class="dropdown-item" href="sharings/Blakesharings.html">Blake</a>
-              <a class="dropdown-item" href="sharings/Abbysharings.html">Abby</a>
-              <a class="dropdown-item" href="sharings/Cristiansharings.html">Cristian</a>
-              <a class="dropdown-item" href="sharings/Brisharings.html">Brianna</a>
-              <a class="dropdown-item" href="sharings/Josharings.html">Jo</a>
-              <a class="dropdown-item" href="sharings/APsharings.html">Andrew Park</a>
-            </div>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="juniors.html">Juniors</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
+  {% include 'header.html' %}
   <main role="main">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
