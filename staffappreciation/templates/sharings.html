@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% with title=title %}
+    {% include 'common/metadata.html' %}
+  {% endwith %}
+  <!-- Custom styles for this template -->
+  <link href="/static/css/jumbotron.css" rel="stylesheet" />
+  <link href="/static/css/hero-image.css" rel="stylesheet" />
+</head>
+
+<body>
+  {% include 'common/header.html' %}
+  <main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="hero-image" style="background-image: url('/static/images/promphoto1.jpg');">
+        <div class="hero-text">
+          <h1>{{ name }}</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Sharing</h2>
+          <p>HEllo i luv you</p>
+        </div>
+      </div>
+
+      <hr />
+    </div>
+    <!-- /container -->
+  </main>
+  {% include 'common/scripts.html' %}
+</body>
+
+</html>

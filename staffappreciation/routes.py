@@ -28,26 +28,33 @@ def parse_input(args):
             args[k] = v[0]
     return args
 
+"""
+Routes for GET requests
+"""
+
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", title="landing")
 
 @app.route("/feed/<quarter>")
 def feed(quarter):
     print(quarter)
     if quarter not in ['fall', 'winter', 'spring']:
         return("404")
-    return render_template(f"{quarter}.html")
+    return render_template(f"feed.html", title=quarter)
 
 @app.route("/juniors")
 def juniors():
-    return render_template("juniors.html")
+    return render_template("juniors.html", title="juniors")
 
 @app.route("/sharings/<name>")
 def sharings(name):
-    return render_template(f"sharings/{name}.html")
+    return render_template(f"sharings.html", title=f"{name} sharings", name=name)
 
+"""
+Routes for API/POST requests related to the database.
+"""
 
 # Insert a post into the database
 @app.route("/insert", methods=['POST'])
