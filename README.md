@@ -4,21 +4,15 @@
 
 ```bash
 root 
- |--api  # Back End Service
- |   |--api.py         # Backend rest framework using Flask
- |   |--startserver.sh # Restarts server in subprocess on ubuntu
- |   |--stopserver.sh  # Stops server in subprocess on ubuntu
- |
- |--www  # Front End Service
- |   |--css       # Style sheets
- |   |--images    # Image Files
- |   |--js        # site-wide javascript
- |   -*.html      # various static html files (to be organized better)
- |
+ |--staffappreciation  # Webapp
+     |--routes.py  # routes for get/post requests
+     |--static     # css, images, js
+     |--templates  # html files
  |--bootstrap-4.5.0-examples # Bootstrap examples to copypaste from
+     |...
  | 
- -requirements.txt  # requirements to pip install from
- -README.md         # this file
+ |--requirements.txt  # requirements to pip install from
+ |--README.md         # this file
 ```
 
 ## Setting up backend:
@@ -33,7 +27,8 @@ source flask/bin/activate
 
 ## Starting the server:
 1. Start your virtualenv
-2. `python api/api.py
+2. `python staffappreciation/routes.py
+3. Navigate to `http://localhost:5000/`
 
 ## Rest API Documentation:
 Every request here is a post request. 
