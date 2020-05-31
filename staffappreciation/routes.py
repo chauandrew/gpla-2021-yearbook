@@ -30,21 +30,22 @@ def parse_input(args):
 
 @app.route("/")
 def index():
-    return render_template("templates/index.html")
+    return render_template("index.html")
 
-@app.route("/<quarter>")
-def quarter(q):
-    if q not in ['fall', 'winter', 'spring']:
-        abort(404)
-    return render_template(f"templates/{q}.html")
+@app.route("/feed/<quarter>")
+def feed(quarter):
+    print(quarter)
+    if quarter not in ['fall', 'winter', 'spring']:
+        return("404")
+    return render_template(f"{quarter}.html")
 
 @app.route("/juniors")
 def juniors():
-    return render_template("templates/juniors.html")
+    return render_template("juniors.html")
 
 @app.route("/sharings/<name>")
 def sharings(name):
-    return render_template(f"templates/sharings/{name}.html")
+    return render_template(f"sharings/{name}.html")
 
 
 # Insert a post into the database
