@@ -42,7 +42,7 @@ def feed(quarter):
     print(quarter)
     if quarter not in ['fall', 'winter', 'spring']:
         return("404")
-    return render_template(f"feed.html", title=quarter)
+    return render_template(f"feed/feed.html", title=quarter)
 
 @app.route("/juniors")
 def juniors():
@@ -64,7 +64,7 @@ def insert():
     # Type Checking
     if 'date' not in args:
         return "'date' field is required"
-    elif not re.match("^\d\d\d\d/\d\d/\d\d$", str(args['date'])):
+    elif not re.match("^\d\d\d\d-\d\d-\d\d$", str(args['date'])):
         return "date must look like: 'YYYY/MM/DD'"
     if 'quarter' not in args:
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
@@ -166,4 +166,4 @@ def write_comment(quarter):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run()

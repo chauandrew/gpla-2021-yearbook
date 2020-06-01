@@ -1,0 +1,40 @@
+<div class="modal" id="upload-modal" tabindex="-1" role="dialog" style="display: none">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-group">
+        <!-- Date -->
+        <label for="modal-name">Event Date (YYYY-MM-DD)</label>
+        <input class="form-control" id="modal-date" placeholder="2019-09-28">
+        <!-- Quarter -->
+        <label for="modal-quarter">Which quarter?</label>
+        <select class="form-control" id="modal-quarter">
+          <option>FALL</option>
+          <option>WINTER</option>
+          <option>SPRING</option>
+        </select>
+        <!-- Type -->
+        <label for="modal-type">What type of post is it?</label>
+        <select class="form-control" id="modal-type">
+          <option>PHOTO</option>
+          <option>ALBUM</option>
+          <option>MEMORY</option>
+        </select>
+        <!-- Path -->
+        <label for="modal-name">Path to folder</label>
+        <input class="form-control" id="modal-path" placeholder="/images/fall/...">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="modal-submit" class="btn btn-primary">Upload</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <script src="/static/js/form.js"></script> -->
