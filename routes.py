@@ -1,25 +1,25 @@
 from flask import Flask, request, jsonify, render_template, make_response
 from flask_pymongo import PyMongo
 import pymongo
+from werkzeug.utils import secure_filename
 
+import os
+from pathlib import Path
 import re
 import datetime
 import json
 from bson import ObjectId
 
 PAGE_SIZE=3
+UPLOAD_FOLDER = '/home/achau/testing'
+
 
 app = Flask(__name__)
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+client = pymongo.MongoClient("127.0.0.1:27017") # Local
+# client = pymongo.MongoClient("mongodb+srv://holynugget:KdYcnS5LWJgAchDI@cluster0-fuwyc.mongodb.net/test?retryWrites=true&w=majority") # Dev
 mydb = client["FlaskApp"]
 posts = mydb["Posts"]
-
-# JSONEncoder from stack overflow :)
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JsonEncoder.default(self, o)
 
 # Turn single length arrays into standalone objects
 def parse_input(args):
@@ -31,7 +31,6 @@ def parse_input(args):
 """
 Routes for GET requests
 """
-
 @app.route("/")
 @app.route("/index")
 def index():
@@ -55,45 +54,56 @@ def sharings(name):
 """
 Routes for API/POST requests related to the database.
 """
-
-# Insert a post into the database
-@app.route("/insert", methods=['POST'])
-def insert():
+# Upload a post! needs: 'date', 'quarter', and ('files' or 'author','body')
+@app.route("/upload", methods=['POST'])
+def upload():
+    # Parse arguments
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
-    # Type Checking
+    files = request.files.getlist("file")
+    files = [file for file in files if file.filename != ''] # filter
     if 'date' not in args:
         return "'date' field is required"
-    elif not re.match("^\d\d\d\d-\d\d-\d\d$", str(args['date'])):
-        return "date must look like: 'YYYY-MM-DD'"
+    elif not re.match("^(19|20)\d\d-(0|1)\d-[0-3]\d$", str(args['date'])):
+        return make_response("date must be valid and look like: 'YYYY-MM-DD'", 201)
     if 'quarter' not in args:
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
     elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
         return "'quarter' field must be 'FALL', 'WINTER', or 'SPRING'"
-    if 'type' not in args:
-        return "'type' field is required. Must be 'ALBUM', 'PHOTO', or 'MEMORY'"
-    elif args['type'] not in ['ALBUM', 'PHOTO', 'MEMORY']:
-        return "'type' field must be 'ALBUM', 'PHOTO', or 'MEMORY'"
-    if 'path' not in args:
-        return "'path' field is required. It describes the path to appropriate data"
-    # Match by all specified fields
-    match = {'$and': []}
-    for key, value in args.items():
-        match['$and'].append({key: value})
-    result = posts.update_one(match, {'$set':args}, upsert=True)
-    response = {'acknowledged': result.acknowledged, 
-            'matched_count': result.matched_count,
-            'modified_count': result.modified_count,
-            'raw_result': result.raw_result,
-            'upserted_id': result.upserted_id }
-    return JSONEncoder().encode(response)
+    if files == []:
+        for key in ['author', 'body']:
+            if key not in args:
+                return "Post without files must specify an 'author' and 'body'"
+        args['type'] = 'SHARING'
+    elif len(files) > 1:
+        if 'title' not in args:
+            return "Post with multiple files must specify a 'title'."
+        args['type'] = "ALBUM"
+    else:
+        args['type'] = "PHOTO"
 
-# Returns all posts
-@app.route('/posts/findall', methods=['POST'])
-def findall():
-    cursor = posts.find()
-    response = [doc for doc in cursor]
-    return JSONEncoder().encode(response)
+    # upload each file to filesystem
+    paths = []
+    now = str(datetime.datetime.now()).replace(' ','')
+    upload_folder = f"{app.config['UPLOAD_FOLDER']}/{now}"
+    Path(upload_folder).mkdir(parents=True, exist_ok=True)
+    for file in files:
+        filename = secure_filename(file.filename)
+        path = os.path.join(upload_folder, filename)
+        file.save(path)
+        paths.append(path)
+    args['files'] = paths
+    args['comments'] = []
+    # Upload to database and return
+    result = posts.insert_one(args)
+    if not result.acknowledged: # if upload fails, delete files and return error
+        for path in paths:
+            os.remove(path)
+        os.rmdir(os.path.dirname(paths[0]))
+        return "Failed to save post to database!"
+    else: 
+        args.update({'acknowledged': result.acknowledged, 'document_id': result.inserted_id })
+        return json.dumps(args, default=str)
 
 # Finds posts in a given quarter, sorted / paginated by date
 @app.route('/posts/<quarter>', methods=['POST'])
@@ -108,62 +118,76 @@ def find_by_quarter(quarter):
     back = front + PAGE_SIZE
     cursor = posts.find({'quarter': quarter.upper()})
     cursor.sort('date', pymongo.ASCENDING)
-
-    #response = cursor
     response = [doc for doc in cursor[front:back]]
-    return JSONEncoder().encode(response)
+    return json.dumps(response, default=str)
 
-# Removes a post
+# Removes a post using any available criteria to match
 @app.route("/remove", methods=['POST'])
 def remove():
+    # Parse arguments
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
     if len(args) == 0:
         return "Must specify a criteria to delete by!"
+    if '_id' in args:
+        args['_id'] = ObjectId(args['_id'])
+    # Search for and delete post
     match = {'$and': []}
     for key, value in args.items():
         match['$and'].append({key: value})
-    result = posts.delete_one(match) 
-    response = {'acknowledged': result.acknowledged, 
-            'deleted_count': result.deleted_count,
-            'raw_result': result.raw_result}
-    return JSONEncoder().encode(response)
+    doc = posts.find_one_and_delete(match)
+    if doc == None:
+        return "Could not find post to delete!"
+    # Delete photos associated with the post
+    for filepath in doc['files']:
+        os.remove(filepath)
+    os.rmdir(os.path.dirname(doc['files'][0]))
+    doc['success'] = True
+    return json.dumps(doc, default=str)
 
-# Write a comment
-@app.route('/posts/<quarter>/comment', methods=['POST'])
-def write_comment(quarter):
-    if quarter.lower() not in ['fall', 'winter', 'spring']:
-        return "quarter (path) must be 'fall', 'winter', or 'spring'"
+# Write a comment. Find post by ObjectId
+@app.route('/posts/comment', methods=['POST'])
+def write_comment():
+    # Parse arguments
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
-    # Validate arguments
     if 'author' not in args:
         return "Must specify 'author' of comment"
     if 'body' not in args:
         return "Must specify 'body' of comment"
-    if 'path' not in args:
-        return "Must specify 'path' of post that comment links to"
+    if '_id' not in args:
+        return "Must specify '_id' of post comment attaches to"
     # Search for post
-    match = {'$and': [{'quarter':quarter.upper()}, {'path':args['path']}]}
+    match = {'_id': ObjectId(args['_id'])}
     if posts.count_documents(match) <= 0:
         return f"Could not find post with path {args['path']}"
-    cursor = posts.find(match)
+    doc = posts.find_one(match)
+    if 'comments' not in doc:
+        doc['comments'] = []
     # Add comment to post
-    comments = []
-    if 'comments' in cursor[0]:
-        comments = cursor[0]['comments']
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    comments.append({'body': args['body'], 
+    doc['comments'].append({'body': args['body'], 
                      'author': args['author'],
                      'timestamp': now})
-    result = posts.update_one(match, {'$set':{'comments':comments}})
-    response = {'acknowledged': result.acknowledged, 
+    result = posts.update_one(match, {'$set':{'comments':doc['comments']}})
+    doc.update({'acknowledged': result.acknowledged, 
             'matched_count': result.matched_count,
             'modified_count': result.modified_count,
             'raw_result': result.raw_result,
-            'upserted_id': result.upserted_id }
-    return JSONEncoder().encode(response)
+            'upserted_id': result.upserted_id })
+    return json.dumps(doc, default=str)
 
 
+""" Testing API Routes """
+
+# Returns all posts
+@app.route('/posts/findall', methods=['POST'])
+def findall():
+    cursor = posts.find()
+    response = [doc for doc in cursor]
+    return json.dumps(response, default=str)
+
+
+""" Main """
 if __name__ == "__main__":
     app.run()
