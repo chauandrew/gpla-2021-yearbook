@@ -10,14 +10,19 @@ import datetime
 import json
 from bson import ObjectId
 
-PAGE_SIZE=3
-UPLOAD_FOLDER = '/home/achau/testing'
+# # Local Settings
+# UPLOAD_FOLDER = '/home/achau/testing' # Local
+# client = pymongo.MongoClient("127.0.0.1:27017") # Local
 
+# Production Settings
+UPLOAD_FOLDER = f"{os.path.expanduser()}/image-data"
+client = pymongo.MongoClient("mongodb+srv://holynugget:KdYcnS5LWJgAchDI@cluster0-fuwyc.mongodb.net/test?retryWrites=true&w=majority")
+
+PAGE_SIZE=3
+ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-client = pymongo.MongoClient("127.0.0.1:27017") # Local
-# client = pymongo.MongoClient("mongodb+srv://holynugget:KdYcnS5LWJgAchDI@cluster0-fuwyc.mongodb.net/test?retryWrites=true&w=majority") # Dev
 mydb = client["FlaskApp"]
 posts = mydb["Posts"]
 
@@ -38,9 +43,8 @@ def index():
 
 @app.route("/feed/<quarter>")
 def feed(quarter):
-    print(quarter)
     if quarter not in ['fall', 'winter', 'spring']:
-        return("404")
+        return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
     return render_template(f"feed/feed.html", title=quarter)
 
 @app.route("/juniors")
@@ -61,26 +65,33 @@ def upload():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
     files = request.files.getlist("file")
+    print(request.files)
+    print(files)
     files = [file for file in files if file.filename != ''] # filter
     if 'date' not in args:
         return "'date' field is required"
     elif not re.match("^(19|20)\d\d-(0|1)\d-[0-3]\d$", str(args['date'])):
-        return make_response("date must be valid and look like: 'YYYY-MM-DD'", 201)
+        return make_response("date must be valid and look like: 'YYYY-MM-DD'", 400)
     if 'quarter' not in args:
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
     elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
-        return "'quarter' field must be 'FALL', 'WINTER', or 'SPRING'"
+        return make_response("'quarter' field must be 'FALL', 'WINTER', or 'SPRING'",400)
     if files == []:
         for key in ['author', 'body']:
             if key not in args:
-                return "Post without files must specify an 'author' and 'body'"
+                return make_response("Post without files must specify an 'author' and 'body'", 400)
         args['type'] = 'SHARING'
     elif len(files) > 1:
         if 'title' not in args:
-            return "Post with multiple files must specify a 'title'."
+            return make_response("Post with multiple files must specify a 'title'.",400)
         args['type'] = "ALBUM"
     else:
         args['type'] = "PHOTO"
+    for file in files:
+        _, ext = os.path.splitext(file.filename)
+        print(ext)
+        if ext.lower() not in ALLOWED_EXTENSIONS:
+            return make_response("File must be .jpg, .jpeg, or .png", 400)
 
     # upload each file to filesystem
     paths = []
@@ -109,7 +120,7 @@ def upload():
 @app.route('/posts/<quarter>', methods=['POST'])
 def find_by_quarter(quarter):
     if quarter.lower() not in ['fall', 'winter', 'spring']:
-        return "quarter (path) must be 'fall', 'winter', or 'spring'"
+        return make_response("quarter (path) must be 'fall', 'winter', or 'spring'", 400)
     args = request.form.to_dict(flat=False)
     # turn single length arrays into standalone objects, etc.
     args = parse_input(args)
@@ -128,7 +139,7 @@ def remove():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
     if len(args) == 0:
-        return "Must specify a criteria to delete by!"
+        return make_response("Must specify a criteria to delete by!",400)
     if '_id' in args:
         args['_id'] = ObjectId(args['_id'])
     # Search for and delete post
@@ -137,7 +148,7 @@ def remove():
         match['$and'].append({key: value})
     doc = posts.find_one_and_delete(match)
     if doc == None:
-        return "Could not find post to delete!"
+        return make_response("Could not find post to delete!",400)
     # Delete photos associated with the post
     for filepath in doc['files']:
         os.remove(filepath)
@@ -152,15 +163,15 @@ def write_comment():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
     if 'author' not in args:
-        return "Must specify 'author' of comment"
+        return make_response("Must specify 'author' of comment",400)
     if 'body' not in args:
-        return "Must specify 'body' of comment"
+        return make_response("Must specify 'body' of comment",400)
     if '_id' not in args:
-        return "Must specify '_id' of post comment attaches to"
+        return make_response("Must specify '_id' of post comment attaches to",400)
     # Search for post
     match = {'_id': ObjectId(args['_id'])}
     if posts.count_documents(match) <= 0:
-        return f"Could not find post with path {args['path']}"
+        return make_response(f"Could not find post with path {args['path']}",400)
     doc = posts.find_one(match)
     if 'comments' not in doc:
         doc['comments'] = []
@@ -185,7 +196,7 @@ def write_comment():
 def findall():
     cursor = posts.find()
     response = [doc for doc in cursor]
-    return json.dumps(response, default=str)
+    return json.dumps(response, indent=4, default=str)
 
 
 """ Main """

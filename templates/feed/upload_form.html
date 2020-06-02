@@ -8,14 +8,11 @@
         </button>
       </div>
       <div class="modal-body form-group">
-        <!-- Author -->
-        <label for="modal-author">Author</label>
-        <input class="form-control" id="modal-author" placeholder="Jeff Ding">
         <!-- Date -->
         <label for="modal-date">Event Date (YYYY-MM-DD)</label>
         <input class="form-control" id="modal-date" placeholder="2019-09-28">
         <!-- Quarter -->
-        <label for="modal-quarter">Which quarter?</label>
+        <label for="modal-quarter">Which quarter did this happen?</label>
         <select class="form-control" id="modal-quarter">
           <option>FALL</option>
           <option>WINTER</option>
@@ -26,10 +23,13 @@
         <input class="form-control" id="modal-title" placeholder="New Student Welcome Night">
         <!-- Files -->
         <label for="modal-files">Photo(s)</label>
-        <input type="file" class="form-control-file" id="modal-author">
+        <input type="file" class="form-control-file" id="modal-files" multiple>
         <!-- Body -->
         <label for="modal-desc">Description</label>
         <textarea class="form-control rounded-0" id="modal-desc" placeholder="Write a description here" rows=2></textarea>
+        <!-- Author -->
+        <label for="modal-author">Author</label>
+        <input class="form-control" id="modal-author" placeholder="Your Name">
       </div>
 
       <div class="modal-footer">
