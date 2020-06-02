@@ -28,7 +28,8 @@ $('#modal-submit').on('click', function () {
     data: data,
     success: function (data) {
       console.log(data);
-      $('#upload-form').modal('hide');
+      $('#upload-modal').modal('hide');
+      console.log("");
     },
     error: function (e) {
       console.log(`Upload failed: ${e.responseText}`);

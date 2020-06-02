@@ -65,8 +65,6 @@ def upload():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
     files = request.files.getlist("file")
-    print(request.files)
-    print(files)
     files = [file for file in files if file.filename != ''] # filter
     if 'date' not in args:
         return "'date' field is required"
@@ -76,9 +74,9 @@ def upload():
         return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
     elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
         return make_response("'quarter' field must be 'FALL', 'WINTER', or 'SPRING'",400)
-    if files == []:
+    if len(files) == 0:
         for key in ['author', 'body']:
-            if key not in args:
+            if args[key] == "":
                 return make_response("Post without files must specify an 'author' and 'body'", 400)
         args['type'] = 'SHARING'
     elif len(files) > 1:
