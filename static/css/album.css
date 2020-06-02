@@ -1,0 +1,16 @@
+.post {
+	width: 100%;
+	display: inline-block;
+}
+
+.post-image img {
+	width: 100%;
+}
+
+.post-gallery img {
+	width: 100%;
+}
+
+.gallery-image-secondary {
+	display: none;
+}
