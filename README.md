@@ -5,7 +5,10 @@
 ```bash
 root 
  |--staffappreciation  # Webapp
-     |--routes.py  # routes for get/post requests
+     |--app.py     # flask app template
+     |--www.py     # get request routes
+     |--api.py     # backend post request routes
+     |--config.py  # python settings and configs
      |--static     # css, images, js
      |--templates  # html files
  |--bootstrap-4.5.0-examples # Bootstrap examples to copypaste from
@@ -27,7 +30,7 @@ source flask/bin/activate
 
 ## Starting the server:
 1. Start your virtualenv
-2. `python staffappreciation/routes.py
+2. `python staffappreciation/app.py
 3. Navigate to `http://localhost:5000/`
 
 ## Rest API Documentation:

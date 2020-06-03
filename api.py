@@ -1,7 +1,7 @@
-from __main__ import app
 from config import DBCLIENT
+from config import UPLOAD_FOLDER
 
-from flask import Flask, request, jsonify, render_template, make_response
+from flask import request, jsonify, render_template, make_response, Blueprint
 from flask_pymongo import PyMongo
 import pymongo
 from werkzeug.utils import secure_filename
@@ -12,6 +12,8 @@ import re
 import datetime
 import json
 from bson import ObjectId
+
+api = Blueprint('api', __name__)
 
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
@@ -24,7 +26,7 @@ def parse_input(args):
     return args
 
 # Upload a post! needs: 'date', 'quarter', and ('files' or 'author','body')
-@app.route("/upload", methods=['POST'])
+@api.route("/upload", methods=['POST'])
 def upload():
     # Parse arguments
     args = request.form.to_dict(flat=False)
@@ -52,14 +54,13 @@ def upload():
         args['type'] = "PHOTO"
     for file in files:
         _, ext = os.path.splitext(file.filename)
-        print(ext)
         if ext.lower() not in ALLOWED_EXTENSIONS:
             return make_response("File must be .jpg, .jpeg, or .png", 400)
 
     # upload each file to filesystem
     paths = []
     now = str(datetime.datetime.now()).replace(' ','')
-    upload_folder = f"{app.config['UPLOAD_FOLDER']}/{now}"
+    upload_folder = f"{UPLOAD_FOLDER}/{now}"
     Path(upload_folder).mkdir(parents=True, exist_ok=True)
     for file in files:
         filename = secure_filename(file.filename)
@@ -80,7 +81,7 @@ def upload():
         return json.dumps(args, default=str)
 
 # Finds posts in a given quarter, sorted / paginated by date
-@app.route('/posts/<quarter>', methods=['POST'])
+@api.route('/posts/<quarter>', methods=['POST'])
 def find_by_quarter(quarter):
     if quarter.lower() not in ['fall', 'winter', 'spring']:
         return make_response("quarter (path) must be 'fall', 'winter', or 'spring'", 400)
@@ -96,7 +97,7 @@ def find_by_quarter(quarter):
     return json.dumps(response, default=str)
 
 # Removes a post using any available criteria to match
-@app.route("/remove", methods=['POST'])
+@api.route("/remove", methods=['POST'])
 def remove():
     # Parse arguments
     args = request.form.to_dict(flat=False)
@@ -120,7 +121,7 @@ def remove():
     return json.dumps(doc, default=str)
 
 # Write a comment. Find post by ObjectId
-@app.route('/posts/comment', methods=['POST'])
+@api.route('/posts/comment', methods=['POST'])
 def write_comment():
     # Parse arguments
     args = request.form.to_dict(flat=False)
@@ -155,7 +156,7 @@ def write_comment():
 """ Testing API Routes """
 
 # Returns all posts
-@app.route('/posts/findall', methods=['POST'])
+@api.route('/posts/findall', methods=['POST'])
 def findall():
     cursor = DBCLIENT['Posts'].find()
     response = [doc for doc in cursor]
