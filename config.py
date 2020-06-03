@@ -1,10 +1,11 @@
 import pymongo
+import os
 
 # global UPLOAD_FOLDER
 # global DBCLIENT
 
 # Local Settings
-# UPLOAD_FOLDER = '/home/achau/testing' # Local
+# UPLOAD_FOLDER = '{os.path.expanduser('~')}/testing' # Local
 # client = pymongo.MongoClient("127.0.0.1:27017") # Local
 
 # Production Settings
