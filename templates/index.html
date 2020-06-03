@@ -3,56 +3,109 @@
 
 <head>
   {% with title=title %}
-    {% include 'common/metadata.html' %}
+  {% include 'common/metadata.html' %}
+  <link rel="stylesheet" href="/static/css/cover.css">
   {% endwith %}
-  <!-- Custom styles for this template -->
-  <link href="/static/css/cover.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-      <div class="inner">
-        <h3 class="masthead-brand">Cover</h3>
-        <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link active" href="/">Home</a>
-          <a class="nav-link" href="feed/fall">Fall</a>
-          <a class="nav-link" href="feed/winter">Winter</a>
-          <a class="nav-link" href="feed/spring">Spring</a>
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Sharings
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="sharings/bob">Bob</a>
-            <a class="dropdown-item" href="sharings/jocelyn">Jocelyn</a>
-            <a class="dropdown-item" href="sharings/blake">Blake</a>
-            <a class="dropdown-item" href="sharings/abby">Abby</a>
-            <a class="dropdown-item" href="sharings/cristian">Cristian</a>
-            <a class="dropdown-item" href="sharings/brianna">Brianna</a>
-            <a class="dropdown-item" href="sharings/jo">Jo</a>
-            <a class="dropdown-item" href="sharings/andrew">Andrew Park</a>
+  {% include 'common/header.html' %}
+  <div class="w-100 p-3 mx-auto flex-column">
+    <!-- Header Photo -->
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <img src="/static/images/home/wr-group-crop.png" class="img-fluid mt-5 border border-3 border-dark">
+          <div class="carousel-caption">
+            <h5>Welcome to GPLA A2F 2019-20</h5>
+            <h1>Junior Scrapbook</h1>
           </div>
-          <a class="nav-link" href="/juniors">Juniors</a>
-        </nav>
+        </div>
       </div>
-    </header>
-
-    <main role="main" class="inner cover">
-      <h1 class="cover-heading">Cover your page.</h1>
-      <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the
-        text, and add your own fullscreen background photo to make it your own.</p>
+      <hr class="featurette-divider">
+      <!-- Thank you message -->
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <h2>To our dearest junior staff:</h2>
+            <p class="lead">
+              Thank you for your outpouring of love, dedication, and prayer to us in this past year.
+              We have been through so many ups and downs together, and we wouldn't have had it
+              any other way. Our lives are so blessed because you all are in it, and we wanted to
+              make this scrapbook as a small token of appreciation and to capture some of the
+              memories that we share.
+            </p>
+            <p>Feel free to add your comments and thoughts as you go through each section!</p>
+          </div>
+        </div>
+      </div>
       <p class="lead">
-        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+        <a href="/juniors" class="btn btn-lg btn-outline-dark">More About Our Class:</a>
       </p>
-    </main>
+      <hr class="featurette-divider">
+      <!-- Image gallery -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- upper left large photo -->
+          <div class="col-12 col-md-6">
+            <a href="/static/images/home/wr-blake.jpg" data-toggle="lightbox" data-gallery="homepage-gallery">
+              <img src="/static/images/home/wr-blake.jpg" class="img-fluid m-2 border border-3 border-dark">
+            </a>
+            <!-- lower left small photos -->
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <a href="/static/images/home/tc-sisters.jpg" data-toggle="lightbox" data-gallery="homepage-gallery">
+                  <img src="/static/images/home/tc-sisters.jpg" class="img-fluid m-2 border border-3 border-dark">
+                </a>
+              </div>
+              <div class="col-6 col-md-6">
+                <a href="/static/images/home/wr-transfer-bros.jpg" data-toggle="lightbox"
+                  data-gallery="homepage-gallery">
+                  <img src="/static/images/home/wr-transfer-bros.jpg" class="img-fluid m-2 border border-3 border-dark">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-6">
+            <!-- Upper right small photos -->
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <a href="/static/images/home/winston_baptism.jpg" data-toggle="lightbox"
+                  data-gallery="homepage-gallery">
+                  <img src="/static/images/home/winston_baptism.jpg" class="img-fluid m-2 border border-3 border-dark">
+                </a>
+              </div>
+              <div class="col-6 col-md-6">
+                <a href="/static/images/home/gymnight-vball.jpg" data-toggle="lightbox" data-gallery="homepage-gallery">
+                  <img src="/static/images/home/gymnight-vball.jpg" class="img-fluid m-2 border border-3 border-dark">
+                </a>
+              </div>
+            </div>
+            <!-- lower right large photo -->
+            <div class="row">
+              <a href="/static/images/home/gymnight-group.jpg" data-toggle="lightbox" data-gallery="homepage-gallery">
+                <img src="/static/images/home/gymnight-group.jpg" class="img-fluid m-2 border border-3 border-dark">
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Large Bottom Photo -->
+        <div class="row">
+          <a href="/static/images/home/tc-group.jpg" data-toggle="lightbox" data-gallery="homepage-gallery">
+            <img src="/static/images/home/tc-group.jpg" class="img-fluid m-2 border border-3 border-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="featurette-divider">
 
-    <footer class="mastfoot mt-auto">
-      <div class="inner">
-        <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a
-            href="https://twitter.com/mdo">@mdo</a>.</p>
+
+    <footer>
+      <div class="text-right">
+        <span class="text-dark">With love, the GPLA C/O 2021</span>
       </div>
     </footer>
+
   </div>
   {% include 'common/scripts.html' %}
 </body>
