@@ -1,10 +1,11 @@
 from config import DBCLIENT
 from config import UPLOAD_FOLDER
+from config import COMPRESSION_KEY
 
 from flask import request, jsonify, render_template, make_response, Blueprint
-from flask_pymongo import PyMongo
 import pymongo
 from werkzeug.utils import secure_filename
+import tinify # for compression api
 
 import os
 from pathlib import Path
@@ -17,6 +18,7 @@ api = Blueprint('api', __name__)
 
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
+tinify.key = COMPRESSION_KEY
 
 # Turn single length arrays into standalone objects
 def parse_input(args):
@@ -77,6 +79,7 @@ def upload():
         os.rmdir(os.path.dirname(paths[0]))
         return "Failed to save post to database!"
     else: 
+        compress_images(paths)
         args.update({'acknowledged': result.acknowledged, 'document_id': result.inserted_id })
         return json.dumps(args, default=str)
 
@@ -161,3 +164,8 @@ def findall():
     cursor = DBCLIENT['Posts'].find()
     response = [doc for doc in cursor]
     return json.dumps(response, indent=4, default=str)
+
+def compress_images(filepaths):
+    for path in filepaths:
+        source = tinify.from_file(path) # compress
+        source.to_file(path)            # upload compressed

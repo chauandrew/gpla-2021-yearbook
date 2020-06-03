@@ -5,6 +5,15 @@ $(document).ready(function () {
 $('#upload-form').modal();
 
 $('#modal-submit').on('click', function () {
+  // Pop up loading screen
+  $('#upload-modal').prepend(`
+  <div id="loadingoverlay" class="d-flex justify-content-center">
+    <div id="loadingtext" class="row justify-content-center text-white">
+      <h3>Compressing Photos...</h3>
+    </div>
+  </div>`)
+  
+  // Send API call
   data = new FormData();
 
   data.append('author', $('#modal-author').val());
@@ -27,11 +36,13 @@ $('#modal-submit').on('click', function () {
     url: request_url,
     data: data,
     success: function (data) {
+      $('#loadingoverlay').remove()
       console.log(data);
       $('#upload-modal').modal('hide');
       console.log("");
     },
     error: function (e) {
+      $('#loadingoverlay').remove()
       console.log(`Upload failed: ${e.responseText}`);
       $('#upload-modal').prepend(`
               <div class='alert alert-warning alert-dismissible fade show' role='alert'>
