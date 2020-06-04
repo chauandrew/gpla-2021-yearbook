@@ -14,6 +14,12 @@
 	{% endif %}
 	<div class="card-body">
 		<h6 class="card-text">{{ post.body }}</h6>
+		{# show author if text post, also show event if photo/album post #}
+		{% if post.files %}
+			<small class="float-right">Captured at {{ post.title }} by {{ post.author }}</small>
+		{% else %}
+			<small class="float-right">By {{ post.author }}</small>
+		{% endif %}
 	</div>
 	{% with comments=post.comments %}
 		{% include 'post/post_comment.html' %}

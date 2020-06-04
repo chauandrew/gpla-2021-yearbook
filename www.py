@@ -20,11 +20,13 @@ def feed(quarter):
     
     memory = {'title': 'A title/short caption here', 'body': f'Summarize {quarter} quarter here, perhaps highlight some memories'}
 
-    posts = json.loads(find_by_quarter(quarter)) 
+    posts = json.loads(find_by_quarter(quarter))
+
+    # process the posts, append additional info if needed
     for post in posts:
         # TODO: add logic to append corresponding post comments
-        post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
-
+        # post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
+        if not post['author']: post['author'] = "Anonymous"
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 

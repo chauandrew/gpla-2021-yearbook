@@ -51,29 +51,12 @@
 
 
 
-
-
-
-<div class="container mb-3">
-    <hr>
-    <br><br>
-    <h5>Note: Posts are ordered from top to bottom and left to right. Available templates: text_post,
-        image_post, gallery_post. Comments form is there only for show at the moment. <b class="text-warning">Remove
-            me before publishing!</b></h5>
-    <br><br>
-    <hr>
-</div>
 <div class="container card-columns post-container">
     {% for post in posts %}
         {% with post=post %}
             {% include 'post/post.html' %}
         {% endwith %}
     {% endfor %}
-
-
-    {% include 'post/text_post.html' %}
-    {% include 'post/image_post.html' %}
-    {% include 'post/gallery_post.html' %}
 </div>
 
 </div>
