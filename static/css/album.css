@@ -3,11 +3,7 @@
 	display: inline-block;
 }
 
-.post-image img {
-	width: 100%;
-}
-
-.post-gallery img {
+img.post-photo, .post-image img, .post-gallery img {
 	width: 100%;
 }
 

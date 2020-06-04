@@ -63,6 +63,13 @@
     <hr>
 </div>
 <div class="container card-columns post-container">
+    {% for post in posts %}
+        {% with post=post %}
+            {% include 'post/post.html' %}
+        {% endwith %}
+    {% endfor %}
+
+
     {% include 'post/text_post.html' %}
     {% include 'post/image_post.html' %}
     {% include 'post/gallery_post.html' %}

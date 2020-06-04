@@ -1,0 +1,21 @@
+{# ambitious all-in-one template in testing #}
+<div class="card post">
+	{% if post.files %}
+		{% with r=range(0,10000)|random %}
+			<a href="{{ post.files[0] }}" class="gallery-image-primary" data-toggle="lightbox" data-gallery="post-gallery{{ r }}">
+				<img src="{{ post.files[0] }}" class="post-photo">
+			</a>
+			{% for file in post.files[1:] %}
+				<a href="{{ file }}" class="gallery-image-secondary" data-toggle="lightbox" data-gallery="post-gallery{{ r }}">
+					<img src="{{ file }}" class="post-photo">
+				</a>
+			{% endfor %}
+		{% endwith %}
+	{% endif %}
+	<div class="card-body">
+		<h6 class="card-text">{{ post.body }}</h6>
+	</div>
+	{% with comments=post.comments %}
+		{% include 'post/post_comment.html' %}
+	{% endwith %}
+</div>

@@ -17,7 +17,8 @@ def feed(quarter):
     if quarter not in ['fall', 'winter', 'spring']:
         return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
     
-    #posts = json.loads(find_by_quarter(quarter)) # this does not work atm, uncomment when find_by_quarter is fixed
+    # TODO: this does not work atm, uncomment when find_by_quarter is fixed
+    # posts = json.loads(find_by_quarter(quarter)) 
 
     posts = json.loads(findall())
     for post in posts:

@@ -1,6 +1,7 @@
 <ul class="list-group list-group-flush">
-	<li class="list-group-item post-comment">I am a comment</li>
-	<li class="list-group-item post-comment">I am also a comment</li>
+	{% for comment in comments %}
+		<li class="list-group-item post-comment">{{ comment }}</li>
+	{% endfor %}
 </ul>
 <div class="card-footer">
 	<form class="form-inline">
