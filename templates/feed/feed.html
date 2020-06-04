@@ -20,9 +20,13 @@
   <main role="main">
     <div class="hero-image">
       <div class="hero-text">
-        <h1>{{ title }} quarter:</h1>
+        <h1>{{ title|title }} quarter</h1>
       </div>
     </div>
+
+    {% with memory=memory %}
+      {% include 'feed/memory.html' %}
+    {% endwith %}
 
     <hr class="featurette-divider">
 
@@ -30,18 +34,14 @@
 
     <hr class="featurette-divider">
 
-    {% include 'feed/photo.html' %}
-
+    <!--
+    {#{% include 'feed/photo.html' %}#}
     <hr class="featurette-divider">
-
-    {% include 'feed/text.html' %}
-
-    <hr class="featurette-divider">
+    -->
 
     <!-- /END THE FEATURETTES -->
 
     </div><!-- /.container -->
-
 
     <!-- FOOTER -->
     <footer class="container">

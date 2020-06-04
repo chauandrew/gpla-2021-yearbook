@@ -17,6 +17,8 @@ def feed(quarter):
     if quarter not in ['fall', 'winter', 'spring']:
         return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
     
+    memory = {'title': 'A title/short caption here', 'body': f'Summarize {quarter} quarter here, perhaps highlight some memories'}
+
     # TODO: this does not work atm, uncomment when find_by_quarter is fixed
     # posts = json.loads(find_by_quarter(quarter)) 
 
@@ -27,7 +29,7 @@ def feed(quarter):
         # TODO: below adds images to test image/gallery posts, remove before publish
         post['files'] = ['/static/postimages/testimage3.jpg', '/static/postimages/testimage2.jpg', '/static/postimages/testimage1.jpg']
 
-    return render_template(f"feed/feed.html", title=quarter, posts=posts)
+    return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 
 @www.route("/juniors")
 def juniors():
