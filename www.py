@@ -19,15 +19,12 @@ def feed(quarter):
     
     memory = {'title': 'A title/short caption here', 'body': f'Summarize {quarter} quarter here, perhaps highlight some memories'}
 
-    # TODO: this does not work atm, uncomment when find_by_quarter is fixed
-    # posts = json.loads(find_by_quarter(quarter)) 
-
-    posts = json.loads(findall())
+    posts = json.loads(find_by_quarter(quarter)) 
     for post in posts:
         # TODO: add logic to append corresponding post comments
         post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
         # TODO: below adds images to test image/gallery posts, remove before publish
-        post['files'] = ['/static/postimages/testimage3.jpg', '/static/postimages/testimage2.jpg', '/static/postimages/testimage1.jpg']
+        # post['files'] = ['/static/postimages/testimage3.jpg', '/static/postimages/testimage2.jpg', '/static/postimages/testimage1.jpg']
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 

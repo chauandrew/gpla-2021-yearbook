@@ -1,2 +1,4 @@
 *.pyc
 __pycache__
+static/images/posts
+tags

@@ -4,14 +4,13 @@ import os
 # global UPLOAD_FOLDER
 # global DBCLIENT
 
+UPLOAD_FOLDER = f"/static/images/posts" # Post images
 if 'PROD_ENV' in os.environ and os.environ['PROD_ENV']:
 	# Production Settings
-	UPLOAD_FOLDER = f"{os.path.expanduser('~')}/image-data"
 	client = pymongo.MongoClient("mongodb+srv://holynugget:KdYcnS5LWJgAchDI@cluster0-fuwyc.mongodb.net/test?retryWrites=true&w=majority")
 	COMPRESSION_KEY = os.environ['TINYPNG_KEY']
 else:
 	# Local Settings
-	UPLOAD_FOLDER = f"{os.path.expanduser('~')}/testing" # Local
 	client = pymongo.MongoClient("localhost:27017") # Local
 	#file = f"{os.path.expanduser('~')}/.tinypng_key.txt"
 	COMPRESSION_KEY = ""

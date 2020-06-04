@@ -63,11 +63,12 @@ def upload():
     paths = []
     now = str(datetime.datetime.now()).replace(' ','')
     upload_folder = f"{UPLOAD_FOLDER}/{now}"
-    Path(upload_folder).mkdir(parents=True, exist_ok=True)
+    dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
+    Path(dirname + upload_folder).mkdir(parents=True, exist_ok=True)
     for file in files:
         filename = secure_filename(file.filename)
         path = os.path.join(upload_folder, filename)
-        file.save(path)
+        file.save(dirname + path)
         paths.append(path)
     args['files'] = paths
     args['comments'] = []
@@ -75,7 +76,7 @@ def upload():
     result = DBCLIENT['Posts'].insert_one(args)
     if not result.acknowledged: # if upload fails, delete files and return error
         for path in paths:
-            os.remove(path)
+            os.remove(dirname + path)
         os.rmdir(os.path.dirname(paths[0]))
         return "Failed to save post to database!"
     else: 
@@ -91,13 +92,16 @@ def find_by_quarter(quarter):
     args = request.form.to_dict(flat=False)
     # turn single length arrays into standalone objects, etc.
     args = parse_input(args)
-    pagenum = int(args['page'])
-    front = pagenum * PAGE_SIZE
-    back = front + PAGE_SIZE
     cursor = DBCLIENT['Posts'].find({'quarter': quarter.upper()})
     cursor.sort('date', pymongo.ASCENDING)
-    response = [doc for doc in cursor[front:back]]
-    return json.dumps(response, default=str)
+    if 'page' in args:
+        front = int(args['page']) * PAGE_SIZE
+        response = [doc for doc in cursor[front:front + back]]
+        return json.dumps(response, default=str)
+    else:
+        response = [doc for doc in cursor]
+        return json.dumps(response, default=str)
+
 
 # Removes a post using any available criteria to match
 @api.route("/remove", methods=['POST'])
@@ -166,6 +170,8 @@ def findall():
     return json.dumps(response, indent=4, default=str)
 
 def compress_images(filepaths):
+    if COMPRESSION_KEY == "": # don't compress locally
+        return
     for path in filepaths:
         source = tinify.from_file(path) # compress
         source.to_file(path)            # upload compressed
