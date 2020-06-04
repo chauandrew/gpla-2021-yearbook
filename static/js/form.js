@@ -1,5 +1,7 @@
 $(document).ready(function () {
   $('#upload-link').removeClass('d-none')
+  toastr.options.closeButton = true
+  toastr.options.positionClass = 'toast-bottom-right'
 })
 
 $('#upload-form').modal();
@@ -12,7 +14,7 @@ $('#modal-submit').on('click', function () {
       <h3>Compressing Photos...</h3>
     </div>
   </div>`)
-  
+
   // Send API call
   data = new FormData();
 
@@ -39,11 +41,13 @@ $('#modal-submit').on('click', function () {
       $('#loadingoverlay').remove()
       console.log(data);
       $('#upload-modal').modal('hide');
-      console.log("");
+      toastr.success("Posted successfully!")
     },
     error: function (e) {
       $('#loadingoverlay').remove()
       console.log(`Upload failed: ${e.responseText}`);
+      toastr.warning(`Upload failed! Response: ${e.responseText}`)
+      /*
       $('#upload-modal').prepend(`
               <div class='alert alert-warning alert-dismissible fade show' role='alert'>
               <strong>Upload failed!</strong>: ${e.responseText}
@@ -51,6 +55,7 @@ $('#modal-submit').on('click', function () {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>`);
+            */
     }
   });
 })
