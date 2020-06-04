@@ -175,4 +175,4 @@ def compress_images(filepaths):
     dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
     for path in filepaths:
         source = tinify.from_file(dirname + path) # compress
-        source.to_file(path)            # upload compressed
+        source.to_file(dirname + path)            # upload compressed
