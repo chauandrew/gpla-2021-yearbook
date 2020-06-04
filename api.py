@@ -172,6 +172,7 @@ def findall():
 def compress_images(filepaths):
     if COMPRESSION_KEY == "": # don't compress locally
         return
+    dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
     for path in filepaths:
-        source = tinify.from_file(path) # compress
+        source = tinify.from_file(dirname + path) # compress
         source.to_file(path)            # upload compressed
