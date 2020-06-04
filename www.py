@@ -1,6 +1,7 @@
 from flask import render_template, make_response, Blueprint
 from api import find_by_quarter, findall
 import json
+import os
 
 www = Blueprint('www', __name__)
 
@@ -23,14 +24,16 @@ def feed(quarter):
     for post in posts:
         # TODO: add logic to append corresponding post comments
         post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
-        # TODO: below adds images to test image/gallery posts, remove before publish
-        # post['files'] = ['/static/postimages/testimage3.jpg', '/static/postimages/testimage2.jpg', '/static/postimages/testimage1.jpg']
+
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 
 @www.route("/juniors")
 def juniors():
-    return render_template("juniors.html", title="juniors")
+    directory = os.path.dirname(os.path.realpath(__file__))
+    with open(directory + '/static/config/juniors.json', 'r') as f:
+        cfg = json.load(f)
+    return render_template("juniors/juniors.html", title="juniors", juniors=cfg['juniors'])
 
 @www.route("/sharings/<name>")
 def sharings(name):

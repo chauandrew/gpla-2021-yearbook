@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% with title=title %}
+  {% include 'common/metadata.html' %}
+  {% endwith %}
+  <!-- Custom styles for this template -->
+  <link href="/static/css/carousel.css" rel="stylesheet" />
+  <link href="/static/css/hero-image.css" rel="stylesheet" />
+</head>
+
+<body>
+  {% include 'common/header.html' %}
+  <!-- Top Text -->
+  <main role="main">
+    <div class="container text-center mt-5 pt-5">
+      <h4>BACK TO THE PAST</h4>
+      <h2>WHEN WE WERE YOUNGER...</h2>
+    </div>
+    <hr class="featurette-divider">
+    <!-- Profiles, configured in /static/config/juniors.json -->
+    <div class="container marketing">
+      <div class="row justify-content-center">
+        {% for junior in juniors %}
+          {% with name=junior.name, picture=junior.picture, fact=junior.fact %}
+            {% include 'juniors/profile.html' %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+  {% include 'common/scripts.html' %}
+</body>
+
+</html>
