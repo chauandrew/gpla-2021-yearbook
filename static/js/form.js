@@ -21,7 +21,7 @@ $('#modal-submit').on('click', function () {
   $('#upload-modal').prepend(`
   <div id="loadingoverlay" class="d-flex justify-content-center">
     <div id="loadingtext" class="row justify-content-center text-white">
-      <h3>Compressing Photos...</h3>
+      <h3>Uploading...</h3>
     </div>
   </div>`)
 
@@ -51,21 +51,12 @@ $('#modal-submit').on('click', function () {
       $('#loadingoverlay').remove()
       console.log(data);
       $('#upload-modal').modal('hide');
-      toastr.success("Posted successfully!")
+      toastr.success("Uploaded successfully! Your post *should* be visible soon.")
     },
     error: function (e) {
       $('#loadingoverlay').remove()
       console.log(`Upload failed: ${e.responseText}`);
       toastr.warning(`Upload failed! Response: ${e.responseText}`)
-      /*
-      $('#upload-modal').prepend(`
-              <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-              <strong>Upload failed!</strong>: ${e.responseText}
-              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>`);
-            */
     }
   });
 })

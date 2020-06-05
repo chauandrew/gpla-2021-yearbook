@@ -33,6 +33,8 @@ def feed(quarter):
             for photo in post['files']:
                 if "testimage" in photo:
                     photo_paths.append(photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0])
+                else:
+                    photo_paths.append(photo)
             post['files'] = photo_paths
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)

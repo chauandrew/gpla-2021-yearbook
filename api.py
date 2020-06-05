@@ -13,11 +13,15 @@ import re
 import datetime
 import json
 from bson import ObjectId
+import threading
+from time import sleep
 
 api = Blueprint('api', __name__)
 
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
+TO_UPLOAD = []
+SLEEP_TIME = 3 # seconds for background upload thread to sleep
 tinify.key = COMPRESSION_KEY
 s3_client = boto3.client('s3',
     aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -30,7 +34,7 @@ def parse_input(args):
             args[k] = v[0]
     return args
 
-# Upload a post! needs: 'date', 'quarter', and ('files' or 'author','body')
+# Queue a post to be uploaded: needs: 'date', 'quarter', and ('files' or 'author','body')
 @api.route("/upload", methods=['POST'])
 def upload():
     # Parse arguments
@@ -62,35 +66,57 @@ def upload():
         if ext.lower() not in ALLOWED_EXTENSIONS:
             return make_response("File must be .jpg, .jpeg, or .png", 400)
 
-    # upload each file to filesystem
-    paths = []
+    # Write images into local filesystem
     now = str(datetime.datetime.now()).replace(' ','')
-    dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
+    dirname = os.path.dirname(os.path.realpath(__file__))
     upload_folder = f"{UPLOAD_FOLDER}/{now}"
-    # Save files locally, compress & upload to s3, delete locally
     Path(dirname + upload_folder).mkdir(parents=True, exist_ok=True)
+    print(files)
     for file in files:
         filename = secure_filename(file.filename)
-        path = f"{dirname}/{upload_folder}/{filename}"  # path on server
-        object_name = f"posts/{now}/{filename}"        # object name on s3
-        file.save(path)
-        source = tinify.from_file(path) # compress
-        source.to_file(path)
-        s3_client.upload_file(path, S3_BUCKET, object_name) # upload to s3
-        os.remove(path) # remove on local filesystem
-        paths.append(object_name)
+        file.save(f"{dirname}{upload_folder}/{filename}")
 
-    args['files'] = paths # 'files' stores paths of s3 objects
-    args['comments'] = []
-    # Upload to database and return
-    result = DBCLIENT['Posts'].insert_one(args)
-    if not result.acknowledged:
-        for path in paths:
-            s3_client.delete_object(Bucket=S3_BUCKET, Key=path)
-        return "Failed to save post to database!"
-    else: 
-        args.update({'acknowledged': result.acknowledged, 'document_id': result.inserted_id })
-        return json.dumps(args, default=str)
+    # Queue images to be uploaded by background task
+    TO_UPLOAD.append({'args': args, 'files': files, 'timestamp': now})
+    return make_response("Upload successfully queued!", 200)
+
+# Thread running in background to compress images and then upload to s3
+def background_upload():
+    global TO_UPLOAD
+    while True:
+        sleep(SLEEP_TIME)
+        try:
+            i = 0
+            for request in TO_UPLOAD:
+                args = request['args']
+                files = request['files']
+                print(files)
+                now = request['timestamp']
+                paths = []
+                dirname = os.path.dirname(os.path.realpath(__file__)) 
+                upload_folder = f"{UPLOAD_FOLDER}/{now}"
+                # Save files locally, compress, upload to s3, delete locally
+                for file in files:
+                    filename = secure_filename(file.filename)
+                    path = f"{dirname}{upload_folder}/{filename}"  # path on server
+                    object_name = f"posts/{now}/{filename}"        # object name on s3
+                    source = tinify.from_file(path) # compress
+                    source.to_file(path)
+                    s3_client.upload_file(path, S3_BUCKET, object_name) # upload to s3
+                    os.remove(path) # remove from local filesystem
+                    paths.append(object_name)
+
+                args['files'] = paths # 'files' stores paths of s3 objects
+                args['comments'] = []
+                print(args)
+                # Upload to database and return
+                result = DBCLIENT['Posts'].insert_one(args)
+                i += 1
+            TO_UPLOAD = TO_UPLOAD[i:] # Remove the number of elements we processed
+        except Exception as e:
+            print(e)
+            pass
+
 
 # Finds posts in a given quarter, sorted / paginated by date
 @api.route('/posts/<quarter>', methods=['POST'])
@@ -114,7 +140,6 @@ def find_by_quarter(quarter):
             buckets.append(url)
         doc['files'] = buckets
         response.append(doc)
-
     if 'page' in args:
         front = int(args['page']) * PAGE_SIZE
         return json.dumps(response[front:front+PAGE_SIZE], default=str)
@@ -185,3 +210,7 @@ def add_comment():
         return make_response('Failed to add comment, please try again', 500)
     else:
         return make_response('Added comment successfully', 200)
+
+
+bkgd_upload = threading.Thread(name='upload', target=background_upload)
+bkgd_upload.start()
