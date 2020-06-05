@@ -1,5 +1,6 @@
 from flask import render_template, make_response, Blueprint
 from api import find_by_quarter
+from config import DEBUG
 import json
 import os
 
@@ -25,10 +26,14 @@ def feed(quarter):
     # process the posts, append additional info if needed
     for post in posts:
         if not post['author']: post['author'] = "Anonymous"
-        for photo in post['files']:
-            if "testimage" in photo:
-                photo = photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0]
-                print(photo)
+        
+        # use local testimages in testing
+        if DEBUG:
+            photo_paths = []
+            for photo in post['files']:
+                if "testimage" in photo:
+                    photo_paths.append(photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0])
+            post['files'] = photo_paths
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 
