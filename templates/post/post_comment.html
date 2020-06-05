@@ -1,13 +1,30 @@
-<ul class="list-group list-group-flush post-comments" id="comments-{{ postid }}">
-	{% for comment in comments %}
-		<li class="list-group-item post-comment">{{ comment }}</li>
-	{% endfor %}
-</ul>
-<div class="card-footer">
-	<form class="form comment-form" id="comment-form-{{ postid }}">
-		<input type="text" name="body" class="form-control" id="comment-input-{{ postid }}"
-			placeholder="Enter a comment">
-		<input type="text" name="postid" value="{{ postid }}" hidden>
-		<input type="submit" hidden>
-	</form>
+<div class="card-footer post-comments-container">
+	<div class="comments-collapse hidden">
+		<ul class="post-comments" id="comments-{{ postid }}">
+			{% for comment in comments %}
+			<li class="post-comment"><small>{{ comment }}</small></li>
+			{% endfor %}
+		</ul>
+		<hr>
+		<form class="form comment-form" id="comment-form-{{ postid }}">
+			<input type="text" name="body" class="form-control" id="comment-input-{{ postid }}"
+				placeholder="Enter a comment">
+			<input type="text" name="postid" value="{{ postid }}" hidden>
+			<input type="submit" hidden>
+		</form>
+	</div>
+	<p class="text-center toggle-container">
+		<a href="" class="comments-toggle">
+			<small class="hide-toggle hidden">
+				Hide comments
+			</small>
+			<small class="unhide-toggle">
+				{% if comments %}
+				View {{comments|length}} comments
+				{% else %}
+				Add a comment
+				{% endif %}
+			</small>
+		</a>
+	</p>
 </div>

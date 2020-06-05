@@ -1,3 +1,17 @@
+$('.comments-toggle').on('click', function (e) {
+	e.preventDefault()
+	commentsdiv = $(this).parent().siblings('.comments-collapse')
+	if (commentsdiv.hasClass('hidden')) {
+		$(this).children('.hide-toggle').removeClass("hidden")
+		$(this).children('.unhide-toggle').addClass("hidden")
+		commentsdiv.removeClass('hidden')
+	} else {
+		$(this).children('.hide-toggle').addClass("hidden")
+		$(this).children('.unhide-toggle').removeClass("hidden")
+		commentsdiv.addClass('hidden')
+	}
+})
+
 $('.comment-form').on('submit', function (e) {
 	e.preventDefault()
 
@@ -7,7 +21,7 @@ $('.comment-form').on('submit', function (e) {
 	// only add if comment is not empty
 	if (body) {
 		// add to comments, then ajax to server
-		$(`#comments-${postid}`).append(`<li class="list-group-item post-comment">${body}</li>`)
+		$(`#comments-${postid}`).append(`<li class="post-comment"><small>${body}</small></li>`)
 
 		$.ajax({
 			type: 'POST',

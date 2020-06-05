@@ -20,13 +20,47 @@ img.post-photo {
 	display: none;
 }
 
+.hidden {
+    display: none;
+}
+
 .comment-form-container {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
+.comments-collapse hr {
+    margin: 0.2rem
+}
+
 .comment-form input {
     border: none;
     width: 100%;
+    font-size: small;
+}
+
+.post-comments-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.toggle-container {
+    padding: 0;
+    margin: 0;
+}
+
+.post-comments {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.expand-comments {
+    padding: 0;
+    margin: 0;
+}
+
+.comments-toggle {
+    color: black;
 }
