@@ -24,9 +24,11 @@ def feed(quarter):
 
     # process the posts, append additional info if needed
     for post in posts:
-        # TODO: add logic to append corresponding post comments
-        # post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
         if not post['author']: post['author'] = "Anonymous"
+        for photo in post['files']:
+            if "testimage" in photo:
+                photo = photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0]
+                print(photo)
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 
