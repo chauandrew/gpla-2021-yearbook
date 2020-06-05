@@ -1,13 +1,26 @@
-<ul class="list-group list-group-flush">
+<ul class="list-group list-group-flush" id="comments-{{ postid }}">
 	{% for comment in comments %}
 		<li class="list-group-item post-comment">{{ comment }}</li>
 	{% endfor %}
 </ul>
 <div class="card-footer">
-	<form class="form-inline">
-		<div class="form-group mx-sm-3">
-			<input type="text" id="postCommentInput" placeholder="Enter a comment">
-		</div>
-		<button class="btn btn-primary" type="submit">Add</button>
+<form class="form comment-form" id="comment-form-{{ postid }}">
+		<input type="text" name="body" class="form-control" id="comment-input-{{ postid }}" placeholder="Enter a comment">
+		<input type="text" name="postid" value="{{ postid }}" hidden>
+		<input type="submit" hidden>
 	</form>
 </div>
+
+<!-- TODO: move to CSS -->
+<style>
+	.comment-form-container {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.comment-form input {
+		border: none;
+		width: 100%;
+	}
+</style>

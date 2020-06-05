@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import datetime
 import json
-from bson import ObjectId
+from bson import ObjectId, is_valid
 
 api = Blueprint('api', __name__)
 
@@ -176,3 +176,24 @@ def compress_images(filepaths):
     for path in filepaths:
         source = tinify.from_file(dirname + path) # compress
         source.to_file(dirname + path)            # upload compressed
+
+
+@api.route('/comment', methods=['POST'])
+def add_comment():
+    args = request.form.to_dict(flat=False)
+    args = parse_input(args)
+
+    # check if id is valid
+    if not re.match("^[0-9a-fA-F]{24}$", args['postid']):
+        return make_response('Invalid post ID', 400)
+
+    # append comment to post.comments
+    result = DBCLIENT['Posts'].update(
+        {'_id': ObjectId(args['postid'])}, 
+        {'$push': {'comments': args['body']}})
+
+    if not result['nModified']:
+        # failed to append comment, most likely due to post not found
+        return make_response('Failed to add comment, please try again', 500)
+    else:
+        return make_response('Added comment successfully', 200)

@@ -9,7 +9,7 @@
 
 .post {
 	width: 100%;
-	display: inline-block;
+    display: inline-block;
 }
 
 img.post-photo, .post-image img, .post-gallery img {

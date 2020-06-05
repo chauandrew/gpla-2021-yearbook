@@ -2,11 +2,11 @@
 <div class="card post">
 	{% if post.files %}
 		{% with r=range(0,10000)|random %}
-			<a href="{{ post.files[0] }}" class="gallery-image-primary" data-toggle="lightbox" data-gallery="post-gallery{{ r }}">
+			<a href="{{ post.files[0] }}" class="gallery-image-primary" data-toggle="lightbox" data-gallery="post-gallery-{{ r }}">
 				<img src="{{ post.files[0] }}" class="post-photo" loading="lazy">
 			</a>
 			{% for file in post.files[1:] %}
-				<a href="{{ file }}" class="gallery-image-secondary" data-toggle="lightbox" data-gallery="post-gallery{{ r }}">
+				<a href="{{ file }}" class="gallery-image-secondary" data-toggle="lightbox" data-gallery="post-gallery-{{ r }}">
 					<img src="{{ file }}" class="post-photo" loading="lazy">
 				</a>
 			{% endfor %}
@@ -21,7 +21,7 @@
 			<small class="float-right">By {{ post.author }}</small>
 		{% endif %}
 	</div>
-	{% with comments=post.comments %}
+	{% with comments=post.comments, postid=post._id %}
 		{% include 'post/post_comment.html' %}
 	{% endwith %}
 </div>

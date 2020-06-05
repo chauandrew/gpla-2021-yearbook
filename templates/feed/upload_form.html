@@ -23,10 +23,14 @@
         <input class="form-control" id="modal-title" placeholder="New Student Welcome Night">
         <!-- Files -->
         <label for="modal-files">Photo(s)</label>
-        <input type="file" class="form-control-file" id="modal-files" multiple>
+        <div class="custom-file">
+          <label class="custom-file-label" for="modal-files">Choose file</label>
+          <input type="file" class="form-control-file custom-file-input" id="modal-files" multiple>
+        </div>
         <!-- Body -->
         <label for="modal-desc">Description</label>
-        <textarea class="form-control rounded-0" id="modal-desc" placeholder="Write a description here" rows=2></textarea>
+        <textarea class="form-control rounded-0" id="modal-desc" placeholder="Write a description here"
+          rows=2></textarea>
         <!-- Author -->
         <label for="modal-author">Author</label>
         <input class="form-control" id="modal-author" placeholder="Your Name">

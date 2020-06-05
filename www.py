@@ -1,5 +1,5 @@
 from flask import render_template, make_response, Blueprint
-from api import find_by_quarter, findall
+from api import find_by_quarter
 import json
 import os
 
