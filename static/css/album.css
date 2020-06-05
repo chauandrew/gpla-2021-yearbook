@@ -12,10 +12,21 @@
     display: inline-block;
 }
 
-img.post-photo, .post-image img, .post-gallery img {
+img.post-photo {
 	width: 100%;
 }
 
 .gallery-image-secondary {
 	display: none;
+}
+
+.comment-form-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-form input {
+    border: none;
+    width: 100%;
 }

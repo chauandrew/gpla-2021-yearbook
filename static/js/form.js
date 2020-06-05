@@ -4,6 +4,16 @@ $(document).ready(function () {
   toastr.options.positionClass = 'toast-bottom-right'
 })
 
+$('.custom-file-input').on('change', function (e) {
+  filenames = []
+  files = $(this).prop('files')
+  for (i = 0; i < files.length; i++) {
+    filenames.push(files[i].name)
+  }
+  console.log(`Selected ${filenames.toString()}`)
+  $(this).siblings('.custom-file-label').text(filenames.toString())
+})
+
 $('#upload-form').modal();
 
 $('#modal-submit').on('click', function () {

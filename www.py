@@ -1,5 +1,6 @@
 from flask import render_template, make_response, Blueprint
 from api import find_by_quarter
+from config import DEBUG
 import json
 import os
 
@@ -24,9 +25,15 @@ def feed(quarter):
 
     # process the posts, append additional info if needed
     for post in posts:
-        # TODO: add logic to append corresponding post comments
-        # post['comments'] = ['test comment 1', 'another test comment that is also longer and will test how multiline looks']
         if not post['author']: post['author'] = "Anonymous"
+        
+        # use local testimages in testing
+        if DEBUG:
+            photo_paths = []
+            for photo in post['files']:
+                if "testimage" in photo:
+                    photo_paths.append(photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0])
+            post['files'] = photo_paths
 
     return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts)
 

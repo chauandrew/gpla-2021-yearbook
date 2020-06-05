@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import datetime
 import json
-from bson import ObjectId, is_valid
+from bson import ObjectId
 
 api = Blueprint('api', __name__)
 
