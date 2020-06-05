@@ -1,11 +1,11 @@
-from config import DBCLIENT
-from config import UPLOAD_FOLDER
-from config import COMPRESSION_KEY
+from config import DBCLIENT, UPLOAD_FOLDER, COMPRESSION_KEY
+from config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, S3_BUCKET
 
 from flask import request, jsonify, render_template, make_response, Blueprint
 import pymongo
 from werkzeug.utils import secure_filename
 import tinify # for compression api
+import boto3
 
 import os
 from pathlib import Path
@@ -19,6 +19,9 @@ api = Blueprint('api', __name__)
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
 tinify.key = COMPRESSION_KEY
+s3_client = boto3.client('s3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 # Turn single length arrays into standalone objects
 def parse_input(args):
@@ -62,25 +65,30 @@ def upload():
     # upload each file to filesystem
     paths = []
     now = str(datetime.datetime.now()).replace(' ','')
-    upload_folder = f"{UPLOAD_FOLDER}/{now}"
     dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
+    upload_folder = f"{UPLOAD_FOLDER}/{now}"
+    # Save files locally, compress & upload to s3, delete locally
     Path(dirname + upload_folder).mkdir(parents=True, exist_ok=True)
     for file in files:
         filename = secure_filename(file.filename)
-        path = os.path.join(upload_folder, filename)
-        file.save(dirname + path)
-        paths.append(path)
-    args['files'] = paths
+        path = f"{dirname}/{upload_folder}/{filename}"  # path on server
+        object_name = f"posts/{now}/{filename}"        # object name on s3
+        file.save(path)
+        source = tinify.from_file(path) # compress
+        source.to_file(path)
+        s3_client.upload_file(path, S3_BUCKET, object_name) # upload to s3
+        os.remove(path) # remove on local filesystem
+        paths.append(object_name)
+
+    args['files'] = paths # 'files' stores paths of s3 objects
     args['comments'] = []
     # Upload to database and return
     result = DBCLIENT['Posts'].insert_one(args)
-    if not result.acknowledged: # if upload fails, delete files and return error
+    if not result.acknowledged:
         for path in paths:
-            os.remove(dirname + path)
-        os.rmdir(os.path.dirname(paths[0]))
+            s3_client.delete_object(Bucket=S3_BUCKET, Key=path)
         return "Failed to save post to database!"
     else: 
-        compress_images(paths)
         args.update({'acknowledged': result.acknowledged, 'document_id': result.inserted_id })
         return json.dumps(args, default=str)
 
@@ -94,16 +102,27 @@ def find_by_quarter(quarter):
     args = parse_input(args)
     cursor = DBCLIENT['Posts'].find({'quarter': quarter.upper()})
     cursor.sort('date', pymongo.ASCENDING)
+    response = []
+    # For each image, get presigned url and replace filepath with that
+    for doc in cursor:
+        buckets = []
+        for file in doc['files']:
+            url = s3_client.generate_presigned_url('get_object', 
+                Params={'Bucket':S3_BUCKET, 'Key': file},
+                ExpiresIn=3600
+            )
+            buckets.append(url)
+        doc['files'] = buckets
+        response.append(doc)
+
     if 'page' in args:
         front = int(args['page']) * PAGE_SIZE
-        response = [doc for doc in cursor[front:front + back]]
-        return json.dumps(response, default=str)
+        return json.dumps(response[front:front+PAGE_SIZE], default=str)
     else:
-        response = [doc for doc in cursor]
         return json.dumps(response, default=str)
 
 
-# Removes a post using any available criteria to match
+# Removes a post from mongodb using any available criteria to match
 @api.route("/remove", methods=['POST'])
 def remove():
     # Parse arguments
@@ -122,43 +141,9 @@ def remove():
         return make_response("Could not find post to delete!",400)
     # Delete photos associated with the post
     for filepath in doc['files']:
-        os.remove(filepath)
-    os.rmdir(os.path.dirname(doc['files'][0]))
+        s3_client.delete_object(Bucket=S3_BUCKET, Key=filepath)
     doc['success'] = True
     return json.dumps(doc, default=str)
-
-# Write a comment. Find post by ObjectId
-@api.route('/posts/comment', methods=['POST'])
-def write_comment():
-    # Parse arguments
-    args = request.form.to_dict(flat=False)
-    args = parse_input(args)
-    if 'author' not in args:
-        return make_response("Must specify 'author' of comment",400)
-    if 'body' not in args:
-        return make_response("Must specify 'body' of comment",400)
-    if '_id' not in args:
-        return make_response("Must specify '_id' of post comment attaches to",400)
-    # Search for post
-    match = {'_id': ObjectId(args['_id'])}
-    if DBCLIENT['Posts'].count_documents(match) <= 0:
-        return make_response(f"Could not find post with path {args['path']}",400)
-    doc = DBCLIENT['Posts'].find_one(match)
-    if 'comments' not in doc:
-        doc['comments'] = []
-    # Add comment to post
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    doc['comments'].append({'body': args['body'], 
-                     'author': args['author'],
-                     'timestamp': now})
-    result = DBCLIENT['Posts'].update_one(match, {'$set':{'comments':doc['comments']}})
-    doc.update({'acknowledged': result.acknowledged, 
-            'matched_count': result.matched_count,
-            'modified_count': result.modified_count,
-            'raw_result': result.raw_result,
-            'upserted_id': result.upserted_id })
-    return json.dumps(doc, default=str)
-
 
 """ Testing API Routes """
 
@@ -166,16 +151,19 @@ def write_comment():
 @api.route('/posts/findall', methods=['POST'])
 def findall():
     cursor = DBCLIENT['Posts'].find()
-    response = [doc for doc in cursor]
+        # For each image, get presigned url and replace filepath with that
+    response = []
+    for doc in cursor:
+        buckets = []
+        for file in doc['files']:
+            url = s3_client.generate_presigned_url('get_object', 
+                Params={'Bucket':S3_BUCKET, 'Key': file},
+                ExpiresIn=3600
+            )
+            buckets.append(url)
+        doc['files'] = buckets
+        response.append(doc)
     return json.dumps(response, indent=4, default=str)
-
-def compress_images(filepaths):
-    if COMPRESSION_KEY == "": # don't compress locally
-        return
-    dirname = os.path.dirname(os.path.realpath(__file__)) # use absolute paths when saving files, local paths in directory
-    for path in filepaths:
-        source = tinify.from_file(dirname + path) # compress
-        source.to_file(dirname + path)            # upload compressed
 
 
 @api.route('/comment', methods=['POST'])
