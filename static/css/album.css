@@ -36,8 +36,11 @@ img.post-photo {
 
 .comment-form input {
     border: none;
-    width: 100%;
     font-size: small;
+}
+
+.comment-body {
+    width: auto;
 }
 
 .post-comments-container {

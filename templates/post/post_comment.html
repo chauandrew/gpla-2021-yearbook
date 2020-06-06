@@ -6,11 +6,22 @@
 			{% endfor %}
 		</ul>
 		<hr>
-		<form class="form comment-form" id="comment-form-{{ postid }}">
-			<input type="text" name="body" class="form-control" id="comment-input-{{ postid }}"
-				placeholder="Enter a comment">
-			<input type="text" name="postid" value="{{ postid }}" hidden>
-			<input type="submit" hidden>
+		<form class="comment-form" id="comment-form-{{ postid }}">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="input-group">
+						<input type="text" name="author" class="form-control comment-author"
+							id="comment-author-{{ postid }}" placeholder="Name">
+						<input type="text" name="body" class="form-control comment-body" id="comment-body-{{ postid }}"
+							placeholder="Enter a comment">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-primary">Add</button>
+						</div>
+					</div>
+					<input type="text" name="postid" value="{{ postid }}" hidden>
+					<input type="submit" hidden>
+				</div>
+			</div>
 		</form>
 	</div>
 	<p class="text-center toggle-container">

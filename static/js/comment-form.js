@@ -1,4 +1,6 @@
 $('.comments-toggle').on('click', function (e) {
+	// update hide/show comment section
+	// TODO: add slide in/out animations
 	e.preventDefault()
 	commentsdiv = $(this).parent().siblings('.comments-collapse')
 	if (commentsdiv.hasClass('hidden')) {
@@ -16,10 +18,14 @@ $('.comment-form').on('submit', function (e) {
 	e.preventDefault()
 
 	postid = $(this).attr('id').replace('comment-form-', '')
-	body = $(`#comment-input-${postid}`).val()
+	author = $(`#comment-author-${postid}`).val()
+	body = $(`#comment-body-${postid}`).val()
 
 	// only add if comment is not empty
 	if (body) {
+		if (!author) author = "Anonymous" // allow anon name
+		body = author + ": " + body
+
 		// add to comments, then ajax to server
 		$(`#comments-${postid}`).append(`<li class="post-comment"><small>${body}</small></li>`)
 
@@ -42,6 +48,6 @@ $('.comment-form').on('submit', function (e) {
 		})
 
 		// commented successfully, remove text from input
-		$(`#comment-input-${postid}`).val('')
+		$(`#comment-body-${postid}`).val('')
 	}
 })
