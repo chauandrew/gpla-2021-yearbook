@@ -19,7 +19,7 @@ from time import sleep
 api = Blueprint('api', __name__)
 
 PAGE_SIZE=3
-ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg']
+ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg', '.gif']
 TO_UPLOAD = []
 SLEEP_TIME = 3 # seconds for background upload thread to sleep
 tinify.key = COMPRESSION_KEY
