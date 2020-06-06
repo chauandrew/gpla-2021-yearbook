@@ -20,7 +20,7 @@ def feed(quarter):
         return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
     
     memory = {'title': f'{quarter} Quarter', 'body': f'Summarize {quarter} quarter here, perhaps highlight some memories'}
-    carousel = os.listdir("static/images/juniors")
+    carousel = os.listdir(f"static/images/feed/{quarter}")
     posts = json.loads(find_by_quarter(quarter))
 
     # process the posts, append additional info if needed
