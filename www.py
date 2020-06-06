@@ -42,10 +42,13 @@ def feed(quarter):
 @www.route("/juniors")
 def juniors():
     directory = os.path.dirname(os.path.realpath(__file__))
-    with open(directory + '/static/config/juniors.json', 'r') as f:
-        cfg = json.load(f)
+    with open(directory + '/static/config/juniors.json', 'r') as jsonFile:
+        cfg = json.load(jsonFile)
     return render_template("juniors/juniors.html", title="juniors", juniors=cfg['juniors'])
 
 @www.route("/sharings/<name>")
 def sharings(name):
-    return render_template(f"sharings.html", title=f"{name} sharings", name=name)
+    directory = os.path.dirname(os.path.realpath(__file__))
+    with open(directory + '/static/config/sharings.json', 'r') as jsonFile:
+        data = json.load(jsonFile)
+    return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"])
