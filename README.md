@@ -2,31 +2,38 @@
 
 ## Directory Structure
 
-```bash
-root 
- |--staffappreciation  # Webapp
-     |--app.py     # flask app template
-     |--www.py     # get request routes
-     |--api.py     # backend post request routes
-     |--config.py  # python settings and configs
-     |--static     # css, images, js
-     |--templates  # html files
- |--bootstrap-4.5.0-examples # Bootstrap examples to copypaste from
-     |...
- | 
- |--requirements.txt  # requirements to pip install from
- |--README.md         # this file
+```python
+/staffappreciation # root
+  /staticd
+    /config     # files to store text, etc. rather than directly in html
+    /css        # stylesheets
+    /images     # static images, organized further
+       ...
+    /js         # js for front-end animations
+  /templates    # html files
+    /common     # header, footer, metadata, scripts
+    /feed       # Templates for the fall/winter/spring pages
+    /post
+    /juniors    
+  
+app.py     # flask app template
+www.py     # get requests
+api.py     # backend post requests routes
+config.py  # python settings, global variables, configurations
+ 
+requirements.txt  # requirements to pip install from
+README.md         # this file
 ```
 
-## Setting up backend:
-It all runs in Flask, so:
+## Setting up the backend:
+The project is built using Flask and Jinja2! Here's a intro of how to get started:
 1. Create a virtualenv
 ```bash
-pip3 install virtualenv
-virtualenv flask
-source flask/bin/activate
+pip3 install virtualenv     # Install virtualenv
+virtualenv flask            # Create a virtualenv named flask
+source flask/bin/activate   # Start the virtual environment
 ```
-2. `pip install -r requirements.txt`
+2. `pip install -r requirements.txt` to install all the necessary packages
 
 ## Starting the server:
 1. Start your virtualenv
@@ -47,7 +54,7 @@ Arguments:
 
 
 ### Write a comment: 
-- url: `/posts/comment`
+- url: `/comment`
 Arguments:
 - author (required), a comment's author
 - body (required), the content of a comment
