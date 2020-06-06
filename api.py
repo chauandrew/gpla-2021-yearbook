@@ -20,6 +20,7 @@ api = Blueprint('api', __name__)
 
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg', '.gif']
+COMPRESSABLE_EXTENSIONS = ['.jpg', '.png', '.jpeg']
 TO_UPLOAD = []
 SLEEP_TIME = 3 # seconds for background upload thread to sleep
 tinify.key = COMPRESSION_KEY
@@ -62,7 +63,6 @@ def upload():
     else:
         args['type'] = "PHOTO"
     for file in files:
-        _, ext = os.path.splitext(file.filename)
         if ext.lower() not in ALLOWED_EXTENSIONS:
             return make_response("File must be .jpg, .jpeg, or .png", 400)
 
@@ -100,8 +100,14 @@ def background_upload():
                     filename = secure_filename(file.filename)
                     path = f"{dirname}{upload_folder}/{filename}"  # path on server
                     object_name = f"posts/{now}/{filename}"        # object name on s3
-                    source = tinify.from_file(path) # compress
-                    source.to_file(path)
+                    
+                    # compress for compatible file types
+                    # TODO: test this
+                    _, ext = os.path.splitext(filename)
+                    if ext.lower() in COMPRESSABLE_EXTENSIONS:
+                        source = tinify.from_file(path) # compress
+                        source.to_file(path)
+
                     s3_client.upload_file(path, S3_BUCKET, object_name) # upload to s3
                     os.remove(path) # remove from local filesystem
                     paths.append(object_name)
