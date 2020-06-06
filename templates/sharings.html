@@ -8,6 +8,7 @@
   <!-- Custom styles for this template -->
   <link href="/static/css/jumbotron.css" rel="stylesheet" />
   <link href="/static/css/hero-image.css" rel="stylesheet" />
+  <link href="/static/css/sharings.css"rel="stylesheet" >
 </head>
 
 <body>
@@ -17,7 +18,7 @@
     <div class="jumbotron">
       <div class="hero-image" style="background-image: url('/static/images/promphoto1.jpg');">
         <div class="hero-text">
-          <h1>{{ name }}</h1>
+          <h1>{{ name|title }}</h1>
         </div>
       </div>
     </div>
@@ -25,32 +26,16 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Sharing</h2>
-          <p>HEllo i luv you</p>
-        </div>
+        {% for person in sharings %}
+          {% set sharing = person['sharings'].__getitem__(name) %}
+          {% if sharing|length %}
+          <div class="offset-md-2 col-md-8 p-3">
+            <p class="text-justify sharing-paragraph">{{ sharing }}</p>
+            <i class="float-right sharing-name"> - {{ person['name']|title }}</i>
+          </div><br/>
+          {% endif %}
+        {% endfor %}
       </div>
-
       <hr />
     </div>
     <!-- /container -->
