@@ -4,10 +4,13 @@ $(document).ready(function () {
   toastr.options.positionClass = 'toast-bottom-right'
 })
 
+uploaded_files=[]
 $('.custom-file-input').on('change', function (e) {
+  uploaded_files = [] // clear old files
   filenames = []
   files = $(this).prop('files')
   for (i = 0; i < files.length; i++) {
+    uploaded_files.push(files[i])
     filenames.push(files[i].name)
   }
   console.log(`Selected ${filenames.toString()}`)
@@ -33,10 +36,9 @@ $('#modal-submit').on('click', function () {
   data.append('quarter', $('#modal-quarter').val());
   data.append('title', $('#modal-title').val());
   data.append('body', $('#modal-desc').val());
-  fileInput = $('#modal-files')
-  for (var i = 0; i < fileInput.length; ++i) {
-    data.append('file', fileInput.prop('files')[i]);
-  }
+  uploaded_files.forEach(function (f) {
+    data.append('file', f)
+  })
 
   request_url = "/upload";
   $.ajax({
@@ -51,7 +53,7 @@ $('#modal-submit').on('click', function () {
       $('#loadingoverlay').remove()
       console.log(data);
       $('#upload-modal').modal('hide');
-      toastr.success("Uploaded successfully! Your post *should* be visible soon.")
+      toastr.success("Uploaded successfully! Please refresh the page to see your post")
     },
     error: function (e) {
       $('#loadingoverlay').remove()
