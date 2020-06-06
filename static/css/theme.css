@@ -1,0 +1,11 @@
+h2, h4, p, span, .color-theme {
+    color: #33427c !important;
+}
+
+h1, h3, h5, .bg-theme  {
+    color: #fff5ed !important;
+}
+
+.border-theme {
+    border-color: #33427c !important;
+}

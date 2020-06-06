@@ -3,3 +3,4 @@ __pycache__
 flask
 static/images/posts
 tags
+tags.lock
