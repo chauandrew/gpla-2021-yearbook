@@ -63,6 +63,7 @@ def upload():
     else:
         args['type'] = "PHOTO"
     for file in files:
+        _, ext = os.path.splitext(file.filename)
         if ext.lower() not in ALLOWED_EXTENSIONS:
             return make_response("File must be .jpg, .jpeg, or .png", 400)
 
@@ -77,7 +78,7 @@ def upload():
         file.save(f"{dirname}{upload_folder}/{filename}")
 
     # Queue images to be uploaded by background task
-    TO_UPLOAD.append({'args': args, 'files': files, 'timestamp': now})
+    # TO_UPLOAD.append({'args': args, 'files': files, 'timestamp': now})
     return make_response("Upload successfully queued!", 200)
 
 # Thread running in background to compress images and then upload to s3
@@ -103,7 +104,7 @@ def background_upload():
                     
                     # compress for compatible file types
                     # TODO: test this
-                    _, ext = os.path.splitext(filename)
+                    ext = filename.split('.')[-1]
                     if ext.lower() in COMPRESSABLE_EXTENSIONS:
                         source = tinify.from_file(path) # compress
                         source.to_file(path)
