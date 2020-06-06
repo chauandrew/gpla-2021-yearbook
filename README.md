@@ -37,7 +37,7 @@ source flask/bin/activate   # Start the virtual environment
 
 ## Starting the server:
 1. Start your virtualenv
-2. `python staffappreciation/app.py
+2. From the root directory, run: `FLASK_APP=app.py FLASK_ENV=development flask run`
 3. Navigate to `http://localhost:5000/`
 
 ## Rest API Documentation:
