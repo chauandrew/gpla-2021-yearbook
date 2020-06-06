@@ -78,7 +78,7 @@ def upload():
         file.save(f"{dirname}{upload_folder}/{filename}")
 
     # Queue images to be uploaded by background task
-    # TO_UPLOAD.append({'args': args, 'files': files, 'timestamp': now})
+    TO_UPLOAD.append({'args': args, 'files': files, 'timestamp': now})
     return make_response("Upload successfully queued!", 200)
 
 # Thread running in background to compress images and then upload to s3
