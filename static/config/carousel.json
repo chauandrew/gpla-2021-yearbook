@@ -1,0 +1,104 @@
+{
+	"fall": [
+		{
+			"order": 1,
+			"event": "Thanksgiving baptism",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "baptism.jpg"
+		},
+		{
+			"order": 2,
+			"event": "Fall gym night",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "gymnight.jpg"
+		},
+		{
+			"order": 3,
+			"event": "Ice skating",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "ice-skating.jpg"
+		},
+		{
+			"order": 4,
+			"event": "First just juniors",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "just-juniors.jpg"
+		},
+		{
+			"order": 5,
+			"event": "Marina",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "marina.jpg"
+		},
+		{
+			"order": 6,
+			"event": "New student welcome night 0",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "nswn0.jpg"
+		},
+		{
+			"order": 7,
+			"event": "New student welcome night 1",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "nswn1.jpg"
+		},
+		{
+			"order": 8,
+			"event": "New student welcome night 2",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "nswn2.jpg"
+		},
+		{
+			"order": 9,
+			"event": "New student welcome night 3",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "nswn3.jpg"
+		},
+		{
+			"order": 10,
+			"event": "Student rally",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "studentrally.jpg"
+		},
+		{
+			"order": 11,
+			"event": "Thanksgiving celebration 0",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "tc-dance0.jpg"
+		},
+		{
+			"order": 12,
+			"event": "Thanksgiving celebration 1",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "tc-dance1.jpg"
+		},
+		{
+			"order": 13,
+			"event": "Thanksgiving celebration 2",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "tc-group.jpg"
+		},
+		{
+			"order": 14,
+			"event": "Thanksgiving celebration 3",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "tc-sisters.jpg"
+		}
+	],
+	"winter": [
+		{
+			"order": 1,
+			"event": "Winter retreat",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "wr0.jpg"
+		}
+	],
+	"spring": [
+		{
+			"order": 1,
+			"event": "Zoom survivor",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
+			"photo": "zoom-survivor.jpg"
+		}
+	]
+}

@@ -12,22 +12,28 @@ Routes for GET requests
 @www.route("/")
 @www.route("/index")
 def index():
-    return render_template("index.html", title="landing")
+    return render_template("index.html", title="Staff Appreciation")
 
 @www.route("/feed/<quarter>")
 def feed(quarter):
     if quarter not in ['fall', 'winter', 'spring']:
         return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
     
-    memory = {'title': f'{quarter} Quarter', 'body': f'Summarize {quarter} quarter here, perhaps highlight some memories'}
-    carousel = os.listdir(f"static/images/feed/{quarter}")
+    directory = os.path.dirname(os.path.realpath(__file__))
+    with open(directory + '/static/config/carousel.json', 'r') as jsonFile:
+        data = json.load(jsonFile)[quarter]
+    data.sort(key=lambda x: x['order'])
+    for item in data:
+        item['photo'] = f"/static/images/feed/{quarter}/" + item['photo']
+    carousel = data
+
+    summary = f'Summarize {quarter} quarter here, perhaps highlight some memories'
     posts = json.loads(find_by_quarter(quarter))
 
     # process the posts, append additional info if needed
     for post in posts:
         if not post['author']: post['author'] = "Anonymous"
-        
-        # use local testimages in testing
+        # strip aws link for testimages
         if DEBUG:
             photo_paths = []
             for photo in post['files']:
@@ -37,7 +43,7 @@ def feed(quarter):
                     photo_paths.append(photo)
             post['files'] = photo_paths
 
-    return render_template(f"feed/feed.html", title=quarter, memory=memory, posts=posts, carousel=carousel)
+    return render_template(f"feed/feed.html", title=f"{quarter } quarter", summary=summary, posts=posts, carousel=carousel)
 
 @www.route("/juniors")
 def juniors():
