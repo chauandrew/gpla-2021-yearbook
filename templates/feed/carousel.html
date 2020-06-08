@@ -33,14 +33,14 @@
 			<div class="row justify-content-center align-self-center" style="padding: 10%;">
 				<div class="slide-caption" id="slide-caption-0">
 					<h2 class="text-center">{{ carousel[0].event }}</h2>
-					<hr class="mb10" width="30%">
-					<p class="text-center">{{ carousel[0].description }}</p>
+					<hr class="underline" width="30%">
+					<p class="text-center light">{{ carousel[0].description }}</p>
 				</div>
 				{% for item in carousel[1:] %}
 				<div class="slide-caption hidden" id="slide-caption-{{ loop.index0 + 1 }}">
 					<h2 class="text-center">{{ item.event }}</h2>
-					<hr class="mb10" width="30%">
-					<p class="text-center">{{ item.description }}</p>
+					<hr class="underline" width="30%">
+					<p class="text-center light">{{ item.description }}</p>
 				</div>
 				{% endfor %}
 			</div>

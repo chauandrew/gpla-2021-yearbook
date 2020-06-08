@@ -7,8 +7,17 @@ h1, h3, h5, .bg-theme  {
     color: #fff5ed !important;
 }
 
-.montserrat {
-    font-family: "Montserrat" !important;
+/* Hide scrollbar  */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* For <hr> tags underlining text */
+.underline {
+    border-color: #33427c !important;
+    border-width: 1px;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
 }
 
 .serif {
@@ -17,6 +26,22 @@ h1, h3, h5, .bg-theme  {
 
 .sansserif {
     font-family: "Open Sans" !important;
+}
+
+.lulo-thin {
+    font-family: "LuloCleanW01-One" !important;
+}
+
+.lulo-bold {
+    font-family: "LuloCleanW01-OneBold" !important;
+}
+
+.light {
+    font-weight:lighter !important;
+}
+
+.bold {
+    font-weight:bolder !important;
 }
 
 .container-fluid {

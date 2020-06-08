@@ -21,12 +21,12 @@
 
     <div class="container text-center mt-5 mb-5 pt-5 pb-5">
       {% if title == "fall quarter" %}
-      <h4 class="sansserif">2019</h4>
+      <h5 class="lulo-thin color-theme">2019</h5>
       {% else %}
-      <h4 class="sansserif">2020</h4>
+      <h5 class="lulo-thin color-theme">2020</h5>
       {% endif %}
-      <hr width="5%">
-      <h1 class="display-4">{{ title|title }}</h1>
+      <hr class="underline" width="5%">
+      <h1 class="lulo-bold color-theme">{{ title|upper }}</h1>
       <!-- <h4>{# {{ summary }} #}</h4> -->
     </div>
 
@@ -35,8 +35,9 @@
     {% include 'feed/carousel.html' %}
 
     <!--<hr class="mt-5 mb-4" width="80%">-->
-
+    {% with title=title %}
     {% include 'feed/album.html' %}
+    {% endwith %}
 
     </div>
   </main>

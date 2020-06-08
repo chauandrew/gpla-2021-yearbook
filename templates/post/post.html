@@ -14,7 +14,7 @@
 		{% endwith %}
 	{% endif %}
 	<div class="card-body">
-		<h6 class="card-text">{{ post.body }}</h6>
+		<h6 class="card-text sansserif light">{{ post.body }}</h6>
 		{# show author if text post, also show event if photo/album post #}
 		{% if post.files %}
 			<small class="float-right">Captured at {{ post.title }} by {{ post.author }}</small>
