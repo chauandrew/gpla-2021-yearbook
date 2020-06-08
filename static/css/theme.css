@@ -6,3 +6,19 @@ h2, h4, p, span, .display-1, .display-2,
 h1, h3, h5, .bg-theme  {
     color: #fff5ed !important;
 }
+
+.montserrat {
+    font-family: "Montserrat" !important;
+}
+
+.serif {
+    font-family: "Crimson Text" !important;
+}
+
+.sansserif {
+    font-family: "Open Sans" !important;
+}
+
+.container-fluid {
+    max-width: 1440px;
+}

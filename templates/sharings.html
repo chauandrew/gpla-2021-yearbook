@@ -20,7 +20,7 @@
     {% if isplaceholder%}
     <div class="hero-image">
     {% else %}
-    <div class="hero-image"  style="background: url({{ image_url}});">
+    <div class="hero-image"  style="background: url({{ image_url }});">
     {% endif %}
         <div class="hero-text">
           <h1>{{ name|title }}</h1>
@@ -35,8 +35,8 @@
           {% set sharing = person['sharings'].__getitem__(name) %}
           {% if sharing|length %}
           <div class="offset-md-2 col-md-8 p-3">
-            <p class="text-justify sharing-paragraph">{{ sharing }}</p>
-            <i class="float-right sharing-name"> - {{ person['name']|title }}</i>
+            <p class="text-justify sharing-paragraph serif">{{ sharing }}</p>
+            <i class="float-right sharing-name serif"> - {{ person['name']|title }}</i>
           </div><br/>
           {% endif %}
         {% endfor %}

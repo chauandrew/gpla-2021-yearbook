@@ -11,7 +11,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css?family=Neucha|Caveat+Brush&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Crimson+Text|Open+Sans:300&display=swap");
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -39,7 +39,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-sans-serif: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -63,7 +63,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
@@ -366,7 +366,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Caveat Brush", cursive;
+  font-family: "Crimson Text";
   font-weight: 500;
   line-height: 1.2;
 }
@@ -401,24 +401,28 @@ h6, .h6 {
 }
 
 .display-1 {
+  font-family: "Montserrat";
   font-size: 6rem;
   font-weight: 300;
   line-height: 1.2;
 }
 
 .display-2 {
+  font-family: "Montserrat";
   font-size: 5.5rem;
   font-weight: 300;
   line-height: 1.2;
 }
 
 .display-3 {
+  font-family: "Montserrat";
   font-size: 4.5rem;
   font-weight: 300;
   line-height: 1.2;
 }
 
 .display-4 {
+  font-family: "Montserrat";
   font-size: 3.5rem;
   font-weight: 300;
   line-height: 1.2;
@@ -6564,7 +6568,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6677,7 +6681,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10833,7 +10837,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .navbar-brand {
-  font-family: "Caveat Brush", cursive;
+  font-family: "Crimson Text";
   font-weight: normal;
   text-decoration: none;
 }
@@ -10852,7 +10856,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 button, input, optgroup, select, textarea {
-  font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 blockquote {
@@ -11177,7 +11181,7 @@ select.form-control {
 }
 
 .toast-header {
-  font-family: "Caveat Brush", cursive;
+  font-family: "Crimson Text";
 }
 
 .modal-content {
