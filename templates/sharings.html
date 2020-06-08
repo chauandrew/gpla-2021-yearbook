@@ -16,7 +16,12 @@
   <main role="main">
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class="hero-image" style="background-image: url('/static/images/JP_Funny.jpg');">
+    {% set image_url = url_for( 'static', filename= 'images/sharings/' + name + '.jpg') %}
+    {% if isplaceholder%}
+    <div class="hero-image">
+    {% else %}
+    <div class="hero-image"  style="background: url({{ image_url}});">
+    {% endif %}
         <div class="hero-text">
           <h1>{{ name|title }}</h1>
         </div>
