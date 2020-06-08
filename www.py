@@ -57,4 +57,8 @@ def sharings(name):
     directory = os.path.dirname(os.path.realpath(__file__))
     with open(directory + '/static/config/sharings.json', 'r') as jsonFile:
         data = json.load(jsonFile)
-    return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"])
+    FILE = directory + '/static/images/sharings/' + name + ".jpg"
+    if os.path.isfile(FILE):
+        return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"], isplaceholder=False)
+    else:
+        return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"], isplaceholder=True)
