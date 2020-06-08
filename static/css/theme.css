@@ -6,8 +6,3 @@ h2, h4, p, span, .display-1, .display-2,
 h1, h3, h5, .bg-theme  {
     color: #fff5ed !important;
 }
-
-.border-theme {
-    border-color: #33427c !important;
-}
-

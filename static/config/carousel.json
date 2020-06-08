@@ -1,104 +1,170 @@
 {
-	"fall": [
-		{
-			"order": 1,
-			"event": "Thanksgiving baptism",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "baptism.jpg"
-		},
-		{
-			"order": 2,
-			"event": "Fall gym night",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "gymnight.jpg"
-		},
-		{
-			"order": 3,
-			"event": "Ice skating",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "ice-skating.jpg"
-		},
-		{
-			"order": 4,
-			"event": "First just juniors",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "just-juniors.jpg"
-		},
-		{
-			"order": 5,
-			"event": "Marina",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "marina.jpg"
-		},
-		{
-			"order": 6,
-			"event": "New student welcome night 0",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "nswn0.jpg"
-		},
-		{
-			"order": 7,
-			"event": "New student welcome night 1",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "nswn1.jpg"
-		},
-		{
-			"order": 8,
-			"event": "New student welcome night 2",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "nswn2.jpg"
-		},
-		{
-			"order": 9,
-			"event": "New student welcome night 3",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "nswn3.jpg"
-		},
-		{
-			"order": 10,
-			"event": "Student rally",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "studentrally.jpg"
-		},
-		{
-			"order": 11,
-			"event": "Thanksgiving celebration 0",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "tc-dance0.jpg"
-		},
-		{
-			"order": 12,
-			"event": "Thanksgiving celebration 1",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "tc-dance1.jpg"
-		},
-		{
-			"order": 13,
-			"event": "Thanksgiving celebration 2",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "tc-group.jpg"
-		},
-		{
-			"order": 14,
-			"event": "Thanksgiving celebration 3",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "tc-sisters.jpg"
-		}
-	],
-	"winter": [
-		{
-			"order": 1,
-			"event": "Winter retreat",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "wr0.jpg"
-		}
-	],
-	"spring": [
-		{
-			"order": 1,
-			"event": "Zoom survivor",
-			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nibh eget nulla bibendum eleifend. Nam pretium augue molestie, laoreet dui vitae, faucibus quam. In consectetur elit non nunc egestas, ac scelerisque lorem hendrerit.",
-			"photo": "zoom-survivor.jpg"
-		}
-	]
+  "fall": [
+    {
+      "order": 1,
+      "event": "Student Rally",
+      "description": "We kicked off Fall Quarter with prayer walks around the UCLA campus to prepare our hearts for Welcome Week and to ask for God to work powerfully throughout the school year. In hindsight, indeed He has!",
+      "photo": "studentrally.jpg"
+    },
+    {
+      "order": 2,
+      "event": "New Student Welcome Night",
+      "description": "We hosted NSWN on Tuesday of Welcome Week, featuring a skit with Winston, a message from Pastor Manny about, and of course, free kbbq. We were all surprised to meet both freshmen and junior transfer students!",
+      "photo": "nswn0.jpg"
+    },
+    {
+      "order": 3,
+      "event": "New Student Welcome Night",
+      "description": "We hosted NSWN on Tuesday of Welcome Week, featuring a skit with Winston, a message from Pastor Manny about, and of course, free kbbq. We were all surprised to meet both freshmen and junior transfer students!",
+      "photo": "nswn1.jpg"
+    },
+    {
+      "order": 4,
+      "event": "New Student Welcome Night",
+      "description": "We hosted NSWN on Tuesday of Welcome Week, featuring a skit with Winston, a message from Pastor Manny about, and of course, free kbbq. We were all surprised to meet both freshmen and junior transfer students!",
+      "photo": "nswn2.jpg"
+    },
+    {
+      "order": 5,
+      "event": "New Student Welcome Night",
+      "description": "We hosted NSWN on Tuesday of Welcome Week, featuring a skit with Winston, a message from Pastor Manny about, and of course, free kbbq. We were all surprised to meet both freshmen and junior transfer students!",
+      "photo": "nswn3.jpg"
+    },
+    {
+      "order": 6,
+      "event": "First Just Juniors",
+      "description": "We squeezed over 40 people into Bob and Jocelyn's apartment for the first of many 'Just Juniors' nights! Bob powerfully shared reflections from his own junior year before we all walked to Saffron & Rose for dessert. Incredibly, this was a beginning to many lasting relationships!",
+      "photo": "just-juniors.jpg"
+    },
+    {
+      "order": 7,
+      "event": "Fall Gym Night",
+      "description": "After a night of games like handball and Braveheart, we landed solidly in fourth place (out of four). Not quite our best showing, but we gave it a shot.",
+      "photo": "gymnight.jpg"
+    },
+    {
+      "order": 8,
+      "event": "Marina Del Rey",
+      "description": "Marina Del Rey ft. the best (food) of LA. We spent the evening with the sophomores hanging out and gorging ourselves on Beard Papa's, Saffron & Rose, and street tacos.",
+      "photo": "marina.jpg"
+    },
+    {
+      "order": 9,
+      "event": "Thanksgiving Celebration",
+      "description": "Before everyone went home for Thanksgiving, we hosted our own Thanksgiving celebration as a church family, complete with food, public embarassment, and most importantly, people we dearly love.",
+      "photo": "tc-dance0.jpg"
+    },
+    {
+      "order": 10,
+      "event": "Thanksgiving Celebration",
+      "description": "Before everyone went home for Thanksgiving, we hosted our own Thanksgiving celebration as a church family, complete with food, public embarassment, and most importantly, people we dearly love.",
+      "photo": "tc-dance1.jpg"
+    },
+    {
+      "order": 11,
+      "event": "Thanksgiving Celebration",
+      "description": "Before everyone went home for Thanksgiving, we hosted our own Thanksgiving celebration as a church family, complete with food, public embarassment, and most importantly, people we dearly love.",
+      "photo": "tc-group.jpg"
+    },
+    {
+      "order": 12,
+      "event": "Thanksgiving Celebration",
+      "description": "Before everyone went home for Thanksgiving, we hosted our own Thanksgiving celebration as a church family, complete with food, public embarassment, and most importantly, people we dearly love.",
+      "photo": "tc-sisters.jpg"
+    },
+    {
+      "order": 13,
+      "event": "Thanksgiving baptism",
+      "description": "Winton, Derek, and Nao were baptized as a public declaration of their faith in Jesus Christ before friends, family, and the residents of Sproul Hall. We celebrated at Boiling Crab, where Nathan and Juyi accidentally bought one of the most expensive items on the menu.",
+      "photo": "baptism.jpg"
+    },
+    {
+      "order": 14,
+      "event": "Ice skating",
+      "description": "We closed out the quarter with a trip to the ice rink, where Jen Kwak and Johnny Ji gracefully skated around clumps of people clinging to walls and each other for dear life. Sometimes we stayed on our feet, sometimes we fell and took our friends with us.",
+      "photo": "ice-skating.jpg"
+    }
+  ],
+  "winter": [
+    {
+      "order": 1,
+      "event": "Winter Welcome Night",
+      "description": "For Winter Welcome Night, which was held on the first Friday of Winter Quarter, the Austin mission team helped us put on a fun night of games and content at De Neve Plaza Room. (Highlights: icebreaker by region, Bob rapping, Cardboard Knights).",
+      "photo": "wwelcome0.jpg"
+    },
+    {
+      "order": 2,
+      "event": "Winter Welcome Night",
+      "description": "For Winter Welcome Night, which was held on the first Friday of Winter Quarter, the Austin mission team helped us put on a fun night of games and content at De Neve Plaza Room. (Highlights: icebreaker by region, Bob rapping, Cardboard Knights).",
+      "photo": "wwelcome1.jpg"
+    },
+    {
+      "order": 3,
+      "event": "Winter Welcome Night",
+      "description": "For Winter Welcome Night, which was held on the first Friday of Winter Quarter, the Austin mission team helped us put on a fun night of games and content at De Neve Plaza Room. (Highlights: icebreaker by region, Bob rapping, Cardboard Knights).",
+      "photo": "wwelcome2.jpg"
+    },
+    {
+      "order": 4,
+      "event": "Winter retreat",
+      "description": "During MLK weekend, the LA church went to Pali Mountain in Big Bear for our annual Winter Retreat. Through Pastor Manny's messages, a documentary on the Charleston shooting, and heartfelt sharings from GP-wide staff, we learned a lot about what true lordship looks like and how to escape from our stuck points to turn towards Jesus. It was a memorable and life-changing weekend as we tried out the campsite zipline, vulnerably opened up to one another, and witnessed many salvation decisions.",
+      "photo": "wr-sean.jpg"
+	},
+    {
+      "order": 5,
+      "event": "Winter retreat",
+      "description": "During MLK weekend, the LA church went to Pali Mountain in Big Bear for our annual Winter Retreat. Through Pastor Manny's messages, a documentary on the Charleston shooting, and heartfelt sharings from GP-wide staff, we learned a lot about what true lordship looks like and how to escape from our stuck points to turn towards Jesus. It was a memorable and life-changing weekend as we tried out the campsite zipline, vulnerably opened up to one another, and witnessed many salvation decisions.",
+      "photo": "wr-sisters.jpg"
+	},
+    {
+      "order": 6,
+      "event": "Winter retreat",
+      "description": "During MLK weekend, the LA church went to Pali Mountain in Big Bear for our annual Winter Retreat. Through Pastor Manny's messages, a documentary on the Charleston shooting, and heartfelt sharings from GP-wide staff, we learned a lot about what true lordship looks like and how to escape from our stuck points to turn towards Jesus. It was a memorable and life-changing weekend as we tried out the campsite zipline, vulnerably opened up to one another, and witnessed many salvation decisions.",
+      "photo": "wr-bros.jpg"
+	},
+    {
+      "order": 7,
+      "event": "Winter retreat",
+      "description": "During MLK weekend, the LA church went to Pali Mountain in Big Bear for our annual Winter Retreat. Through Pastor Manny's messages, a documentary on the Charleston shooting, and heartfelt sharings from GP-wide staff, we learned a lot about what true lordship looks like and how to escape from our stuck points to turn towards Jesus. It was a memorable and life-changing weekend as we tried out the campsite zipline, vulnerably opened up to one another, and witnessed many salvation decisions.",
+      "photo": "wr-photobob.gif"
+	},
+    {
+      "order": 8,
+      "event": "Winter Gym Night",
+      "description": "For our second gym night of the year, we joined Klesis for another challenge on our team spirit and physical agility. We came back faster, and stronger, but still couldn't escape our fate of ranking last of all teams. But as Jeff likes to say, \"the last shall be first and the first shall be last,\" so it's all good...",
+      "photo": "gym-night.jpg"
+	},
+    {
+      "order": 9,
+      "event": "Junior-Frosh Dinners",
+      "description": "To bond with our younger brothers and sisters, we hosted them at each of our apartments with delicious food and fun activities. The sisters learned about each other's greatest fears and pet peeves, ending the night with a Nerf gun battle and acapella battle; the bros played board games and talked about coding.",
+      "photo": "jr-frosh0.jpg"
+	},
+    {
+      "order": 10,
+      "event": "Junior-Frosh Dinners",
+      "description": "To bond with our younger brothers and sisters, we hosted them at each of our apartments with delicious food and fun activities. The sisters learned about each other's greatest fears and pet peeves, ending the night with a Nerf gun battle and acapella battle; the bros played board games and talked about coding.",
+      "photo": "jr-frosh1.jpg"
+	},
+    {
+      "order": 11,
+      "event": "Junior-Frosh Dinners",
+      "description": "To bond with our younger brothers and sisters, we hosted them at each of our apartments with delicious food and fun activities. The sisters learned about each other's greatest fears and pet peeves, ending the night with a Nerf gun battle and acapella battle; the bros played board games and talked about coding.",
+      "photo": "jr-frosh2.jpg"
+	}
+  ],
+  "spring": [
+    {
+      "order": 1,
+      "event": "USC Preview Service",
+      "description": "The junior class had the privilege of hosting the USC Preview Day service. We managed the USC A2F website, social media content, and led various portions of the actual service. Several students ultimately joined for the event! Praise the Lord!",
+      "photo": "usc-dance.jpg"
+    },
+    {
+      "order": 2,
+      "event": "Zoom Survivor",
+      "description": "We were pleasantly surprised when, instead of NSWN planning, Bob and Jocelyn prepared a game of Survivor, where we scavenged our houses for various objects that might help us survive. Some of these included a 'magic stick', garlic, and a handgun (yes, a real handgun).",
+      "photo": "zoom-survivor.jpg"
+    }
+  ]
 }

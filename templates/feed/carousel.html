@@ -3,18 +3,18 @@
 		<div class="col-md-8">
 		<!-- vertical caption placement: <div class="col-md-8 offset-md-2">-->
 			<div id="carousel" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators border-theme">
+				<ol class="carousel-indicators border-dark">
 					{% for item in carousel %}
 					<li data-target="#carousel" data-slide-to="{{ loop.index0 }}" class="active"></li>
 					{% endfor %}
 				</ol>
-				<div class="carousel-inner border border-3 border-theme">
+				<div class="carousel-inner border border-3 border-dark">
 					<div class="carousel-item active" id="carousel-slide-0">
 						<img class="carousel-img" src="{{ carousel[0].photo }}">
 					</div>
 					{% for item in carousel[1:] %}
 					<div class="carousel-item" id="carousel-slide-{{ loop.index0 + 1 }}">
-						<img class="carousel-img" src="{{ item.photo }}">
+						<img class="carousel-img" src="{{ item.photo }}" loading="lazy">
 					</div>
 					{% endfor %}
 					<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
