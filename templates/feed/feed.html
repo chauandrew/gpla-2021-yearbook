@@ -20,7 +20,11 @@
   <main role="main">
 
     <div class="container text-center mt-5 mb-5 pt-5 pb-5">
+      {% if title == "fall quarter" %}
       <h4 class="sansserif">2019</h4>
+      {% else %}
+      <h4 class="sansserif">2020</h4>
+      {% endif %}
       <hr width="5%">
       <h1 class="display-4">{{ title|title }}</h1>
       <!-- <h4>{# {{ summary }} #}</h4> -->
