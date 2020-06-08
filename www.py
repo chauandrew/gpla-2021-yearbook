@@ -21,13 +21,13 @@ def feed(quarter):
     
     directory = os.path.dirname(os.path.realpath(__file__))
     with open(directory + '/static/config/carousel.json', 'r') as jsonFile:
-        data = json.load(jsonFile)[quarter]
-    data.sort(key=lambda x: x['order'])
-    for item in data:
+        data = json.load(jsonFile)
+        summary = data['descriptions'][quarter]
+        carousel = data[quarter]
+    carousel.sort(key=lambda x: x['order'])
+    for item in carousel:
         item['photo'] = f"/static/images/feed/{quarter}/" + item['photo']
-    carousel = data
 
-    summary = f'Summarize {quarter} quarter here, perhaps highlight some memories'
     posts = json.loads(find_by_quarter(quarter))
 
     # process the posts, append additional info if needed

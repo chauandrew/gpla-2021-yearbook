@@ -1,4 +1,9 @@
 {
+  "descriptions": {
+    "fall": "A new beginning. Between meeting new peers, the Caltech ministry, and figuring out apartment life, it was an exciting time for our new and returning students alike.",
+    "winter": "Though the newness and excitement of college started to fade, they didn't stop habits and close friendships from taking shape. Amid countless hours at the Learning Center, Course 301, and Winter Retreat, we planted our roots deep, just in time for the storm of Covid 19.",
+    "spring": "A time of new struggles for us all as classes moved online and many of us moved back home. But this ultimately led to even greater opportunities for ministry through USC Preview Service, Bruin Fam, and NSWN planning."
+  },
   "fall": [
     {
       "order": 1,
@@ -158,13 +163,31 @@
       "order": 1,
       "event": "USC Preview Service",
       "description": "The junior class had the privilege of hosting the USC Preview Day service. We managed the USC A2F website, social media content, and led various portions of the actual service. Several students ultimately joined for the event! Praise the Lord!",
-      "photo": "usc-dance.jpg"
+      "photo": "usc-flyer.png"
     },
     {
       "order": 2,
+      "event": "USC Preview Service",
+      "description": "The junior class had the privilege of hosting the USC Preview Day service. We managed the USC A2F website, social media content, and led various portions of the actual service. Several students ultimately joined for the event! Praise the Lord!",
+      "photo": "usc-dance.jpg"
+    },
+    {
+      "order": 3,
       "event": "Zoom Survivor",
       "description": "We were pleasantly surprised when, instead of NSWN planning, Bob and Jocelyn prepared a game of Survivor, where we scavenged our houses for various objects that might help us survive. Some of these included a 'magic stick', garlic, and a handgun (yes, a real handgun).",
       "photo": "zoom-survivor.jpg"
+    },
+    {
+      "order": 4,
+      "event": "Memorial Day",
+      "description": "Despite SIP, we spent Memorial Day together: the bros went on a grueling 17 mile hike without shade, and the sisters drove through OC to visit one another.",
+      "photo": "memorialday-bros.jpeg"
+    },
+    {
+      "order": 5,
+      "event": "Memorial Day",
+      "description": "Despite SIP, we spent Memorial Day together: the bros went on a grueling 17 mile hike without shade, and the sisters drove through OC and Riverside to visit one another.",
+      "photo": "memorialday-sisters.jpeg"
     }
   ]
 }
