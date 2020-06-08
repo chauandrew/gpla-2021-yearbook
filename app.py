@@ -14,4 +14,5 @@ app.register_blueprint(api)
 """ Main """
 if __name__ == "__main__":
     app.config['UPLOAD_FOLDER'] = config.UPLOAD_FOLDER
+    app.jinja_env.cache = {}
     app.run()
