@@ -2,7 +2,7 @@
   "juniors": [
     {
       "name": "Andrew",
-      "fact": "I like to take my shoes off when I drive",
+      "fact": "During quarantine, I once took communion with soymilk and you tiao.",
       "picture": "static/images/juniors/andrew.jpg"
     },
     {
@@ -12,12 +12,12 @@
     },
     {
       "name": "Cordelia",
-      "fact": "It takes me at least 30 minutes to finish a meal.",
+      "fact": "It takes me at least 30 minutes to finish a meal",
       "picture": "static/images/juniors/cordelia.jpg"
     },
     {
       "name": "Eric",
-      "fact": "I have watched over three seasons of Pretty Little Liars.",
+      "fact": "I have watched over three seasons of Pretty Little Liars",
       "picture": "static/images/juniors/eric.jpg"
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "name": "Jasmine",
-      "fact": "I nearly got ran over by a car twice this year.",
+      "fact": "I nearly got ran over by a car twice this year",
       "picture": "static/images/juniors/jasmine.jpg"
     },
     {
@@ -67,7 +67,7 @@
     },
     {
       "name": "Julian",
-      "fact": "Flip-flops and no umbrella are my go-to in the rain.",
+      "fact": "Flip-flops and no umbrella are my go-to in the rain",
       "picture": "static/images/juniors/julian.jpg"
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "name": "Karis",
-      "fact": "When I was younger I was incredibly scared of fish section at the Korean market.",
+      "fact": "When I was younger I was incredibly scared of fish section at the Korean market",
       "picture": "static/images/juniors/karis.jpg"
     },
     {
@@ -86,23 +86,33 @@
       "picture": "static/images/juniors/kayla.jpg"
     },
     {
+      "name": "Nadia",
+      "fact": "Aesthetically pleasing packaging is my weakness",
+      "picture": "static/images/juniors/nadia.jpg"
+    },
+    {
+      "name": "Nathan",
+      "fact": "I have a fear of the color pink",
+      "picture": "static/images/juniors/nathan.jpg"
+    },
+    {
       "name": "Sara",
       "fact": "Been stranded on a volcanic island in the East Sea and befriended a dog named Peaches",
       "picture": "static/images/juniors/sara.jpg"
     },
     {
       "name": "Sean",
-      "fact": "I really like large nice dogs, and dislike small mean ones.",
+      "fact": "I really like large nice dogs, and dislike small mean ones",
       "picture": "static/images/juniors/sean.jpg"
     },
     {
       "name": "Skyla",
-      "fact": "I hate hot dogs.",
+      "fact": "I hate hot dogs",
       "picture": "static/images/juniors/skyla.jpg"
     },
     {
       "name": "Winston",
-      "fact": "I have successfully pole vaulted over 9 feet before.",
+      "fact": "I have successfully pole vaulted over 9 feet before",
       "picture": "static/images/juniors/winston.jpg"
     }
   ]
