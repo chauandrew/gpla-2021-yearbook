@@ -12,8 +12,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 @import url("https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans:300&display=swap");
-@import url("//db.onlinewebfonts.com/c/39a2c7f346d5cfae7045aeb2fb50d9ad?family=LuloCleanW01-OneBold");
-@import url("//db.onlinewebfonts.com/c/116d187134420de5733c7c45bbc80c46?family=LuloCleanW01-One");
+@font-face {
+  font-family: "LuloCleanW01-OneBold";
+  src: url("/static/fonts/lulobold.woff")
+}
+@font-face {
+  font-family: "LuloCleanW01-One";
+  src: url("/static/fonts/lulothin.woff")
+}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
