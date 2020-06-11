@@ -31,18 +31,11 @@
 		<div class="col-md-4 d-flex">
 		<!-- vertical caption placement: <div class="col-md-4 offset-md-4 d-flex">-->
 			<div class="row justify-content-center align-self-center" style="padding: 10%;">
-				<div class="slide-caption" id="slide-caption-0">
+				<div class="slide-caption">
 					<h2 class="text-center">{{ carousel[0].event }}</h2>
 					<hr class="underline" width="30%">
 					<p class="text-center light">{{ carousel[0].description }}</p>
 				</div>
-				{% for item in carousel[1:] %}
-				<div class="slide-caption hidden" id="slide-caption-{{ loop.index0 + 1 }}">
-					<h2 class="text-center">{{ item.event }}</h2>
-					<hr class="underline" width="30%">
-					<p class="text-center light">{{ item.description }}</p>
-				</div>
-				{% endfor %}
 			</div>
 		</div>
 	</div>

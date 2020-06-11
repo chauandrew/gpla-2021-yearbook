@@ -16,7 +16,7 @@ from bson import ObjectId
 import threading
 from time import sleep
 
-api = Blueprint('api', __name__)
+posts = Blueprint('posts', __name__)
 
 PAGE_SIZE=3
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg', '.gif']
@@ -36,7 +36,7 @@ def parse_input(args):
     return args
 
 # Queue a post to be uploaded: needs: 'date', 'quarter', and ('files' or 'author','body')
-@api.route("/upload", methods=['POST'])
+@posts.route("/api/posts/upload", methods=['POST'])
 def upload():
     # Parse arguments
     args = request.form.to_dict(flat=False)
@@ -47,10 +47,6 @@ def upload():
         return "'date' field is required"
     elif not re.match("^(19|20)\d\d-(0|1)\d-[0-3]\d$", str(args['date'])):
         return make_response("date must be valid and look like: 'YYYY-MM-DD'", 400)
-    if 'quarter' not in args:
-        return "'quarter' field is required. must be 'FALL', 'WINTER', or 'SPRING'"
-    elif args['quarter'] not in ['FALL', 'WINTER', 'SPRING']:
-        return make_response("'quarter' field must be 'FALL', 'WINTER', or 'SPRING'",400)
     if len(files) == 0:
         for key in ['author', 'body']:
             if args[key] == "":
@@ -70,7 +66,7 @@ def upload():
     # Write images into local filesystem
     now = str(datetime.datetime.now()).replace(' ','')
     dirname = os.path.dirname(os.path.realpath(__file__))
-    upload_folder = f"{UPLOAD_FOLDER}/{now}"
+    upload_folder = f"{UPLOAD_FOLDER}/posts/{now}"
     Path(dirname + upload_folder).mkdir(parents=True, exist_ok=True)
     print(files)
     for file in files:
@@ -82,7 +78,7 @@ def upload():
     return make_response("Upload successfully queued!", 200)
 
 # Thread running in background to compress images and then upload to s3
-def background_upload():
+def background_post_upload():
     global TO_UPLOAD
     while True:
         sleep(SLEEP_TIME)
@@ -95,7 +91,7 @@ def background_upload():
                 now = request['timestamp']
                 paths = []
                 dirname = os.path.dirname(os.path.realpath(__file__)) 
-                upload_folder = f"{UPLOAD_FOLDER}/{now}"
+                upload_folder = f"{UPLOAD_FOLDER}/posts/{now}"
                 # Save files locally, compress, upload to s3, delete locally
                 for file in files:
                     filename = secure_filename(file.filename)
@@ -126,10 +122,10 @@ def background_upload():
 
 
 # Finds posts in a given quarter, sorted / paginated by date
-@api.route('/posts/<quarter>', methods=['POST'])
+@posts.route('/api/posts/<quarter>', methods=['POST'])
 def find_by_quarter(quarter):
-    if quarter.lower() not in ['fall', 'winter', 'spring']:
-        return make_response("quarter (path) must be 'fall', 'winter', or 'spring'", 400)
+    if quarter.lower() not in ['summer','fall', 'winter', 'spring']:
+        return make_response("quarter must be 'summer', 'fall', 'winter', or 'spring'", 400)
     args = request.form.to_dict(flat=False)
     # turn single length arrays into standalone objects, etc.
     args = parse_input(args)
@@ -155,7 +151,7 @@ def find_by_quarter(quarter):
 
 
 # Removes a post from mongodb using any available criteria to match
-@api.route("/remove", methods=['POST'])
+@posts.route("/api/posts/remove", methods=['POST'])
 def remove():
     # Parse arguments
     args = request.form.to_dict(flat=False)
@@ -180,7 +176,7 @@ def remove():
 """ Testing API Routes """
 
 # Returns all posts
-@api.route('/posts/findall', methods=['POST'])
+@posts.route('/api/posts/findall', methods=['POST'])
 def findall():
     cursor = DBCLIENT['Posts'].find()
         # For each image, get presigned url and replace filepath with that
@@ -198,7 +194,7 @@ def findall():
     return json.dumps(response, indent=4, default=str)
 
 
-@api.route('/comment', methods=['POST'])
+@posts.route('/api/posts/comment', methods=['POST'])
 def add_comment():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
@@ -219,5 +215,5 @@ def add_comment():
         return make_response('Added comment successfully', 200)
 
 
-bkgd_upload = threading.Thread(name='upload', target=background_upload)
+bkgd_upload = threading.Thread(name='upload', target=background_post_upload)
 bkgd_upload.start()

@@ -23,9 +23,9 @@
     <!-- Profiles, configured in /static/config/juniors.json -->
     <div class="container marketing">
       <div class="row justify-content-center">
-        {% for junior in juniors %}
-          {% with name=junior.name, picture=junior.picture, fact=junior.fact %}
-            {% include 'juniors/profile.html' %}
+        {% for senior in seniors %}
+          {% with name=senior.name, picture=senior.picture, fact=senior.fact %}
+            {% include 'seniors/profile.html' %}
           {% endwith %}
         {% endfor %}
       </div>

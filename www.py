@@ -1,5 +1,5 @@
 from flask import render_template, make_response, Blueprint
-from api import find_by_quarter
+from posts import find_by_quarter, findall
 from config import DEBUG
 import json
 import os
@@ -14,21 +14,24 @@ Routes for GET requests
 def index():
     return render_template("index.html", title="Staff Appreciation")
 
-@www.route("/feed/<quarter>")
-def feed(quarter):
-    if quarter not in ['fall', 'winter', 'spring']:
-        return make_response("Quarter must be 'fall', 'winter' or 'spring'", 404)
-    
+@www.route("/timeline")
+def timeline():
     directory = os.path.dirname(os.path.realpath(__file__))
-    with open(directory + '/static/config/carousel.json', 'r') as jsonFile:
-        data = json.load(jsonFile)
-        summary = data['descriptions'][quarter]
-        carousel = data[quarter]
-    carousel.sort(key=lambda x: x['order'])
-    for item in carousel:
-        item['photo'] = f"/static/images/feed/{quarter}/" + item['photo']
 
-    posts = json.loads(find_by_quarter(quarter))
+    return render_template(f"timeline/timeline.html", title=f"Timeline")
+
+@www.route("/seniors")
+def seniors():
+    directory = os.path.dirname(os.path.realpath(__file__))
+    with open(directory + '/static/config/seniors.json', 'r') as jsonFile:
+        cfg = json.load(jsonFile)
+    return render_template("seniors/seniors.html", title="seniors", seniors=cfg['seniors'])
+
+@www.route("/memories")
+def memories():
+    directory = os.path.dirname(os.path.realpath(__file__))
+
+    posts = json.loads(findall())
 
     # process the posts, append additional info if needed
     for post in posts:
@@ -43,22 +46,4 @@ def feed(quarter):
                     photo_paths.append(photo)
             post['files'] = photo_paths
 
-    return render_template(f"feed/feed.html", title=f"{quarter } quarter", summary=summary, posts=posts, carousel=carousel)
-
-@www.route("/juniors")
-def juniors():
-    directory = os.path.dirname(os.path.realpath(__file__))
-    with open(directory + '/static/config/juniors.json', 'r') as jsonFile:
-        cfg = json.load(jsonFile)
-    return render_template("juniors/juniors.html", title="juniors", juniors=cfg['juniors'])
-
-@www.route("/sharings/<name>")
-def sharings(name):
-    directory = os.path.dirname(os.path.realpath(__file__))
-    with open(directory + '/static/config/sharings.json', 'r') as jsonFile:
-        data = json.load(jsonFile)
-    FILE = directory + '/static/images/sharings/' + name + ".jpg"
-    if os.path.isfile(FILE):
-        return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"], isplaceholder=False)
-    else:
-        return render_template(f"sharings.html", title=f"{name} sharings", name=name, sharings=data["junior sharings"], isplaceholder=True)
+    return render_template(f"feed/feed.html", title=f"Memories", posts=posts)

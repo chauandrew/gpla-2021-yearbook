@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% with title=title %}
+  {% include 'common/metadata.html' %}
+  {% endwith %}
+  <link href="/static/css/carousel.css" rel="stylesheet">
+</head>
+
+<body>
+  {% include 'common/header.html' %}
+
+  <main role="main">
+
+    <div class="container text-center mt-5 mb-5 pt-5 pb-5">
+      <h5 class="lulo-thin color-theme">2020-2021</h5>
+      <hr class="underline" width="5%">
+      <h1 class="lulo-bold color-theme">Timeline</h1>
+    </div>
+
+    <!-- {# {% include 'timeline/carousel.html' %} #} -->
+
+    </div>
+  </main>
+  {% include 'common/footer.html' %}
+  {% include 'common/scripts.html' %}
+  <script src="/static/js/carousel.js" defer></script>
+</body>
+
+</html>

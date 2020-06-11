@@ -5,7 +5,7 @@ import os
 # global DBCLIENT
 # global DEBUG
 
-UPLOAD_FOLDER = f"/static/images/posts" # Post images
+UPLOAD_FOLDER = f"/static/images/" # Post images
 S3_BUCKET = "staff-appreciation"
 client = pymongo.MongoClient("mongodb+srv://holynugget:KdYcnS5LWJgAchDI@cluster0-fuwyc.mongodb.net/test?retryWrites=true&w=majority")
 

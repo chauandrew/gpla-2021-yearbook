@@ -1,13 +1,15 @@
 from flask import Flask
-from api import Blueprint
+# from posts import Blueprint
 
 import config
-from api import api
+from posts import posts
 from www import www
+from timeline import timeline
 
 app = Flask(__name__)
 app.register_blueprint(www)
-app.register_blueprint(api)
+app.register_blueprint(posts)
+app.register_blueprint(timeline)
 
 # Locally import routes
 

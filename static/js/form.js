@@ -40,7 +40,7 @@ $('#modal-submit').on('click', function () {
     data.append('file', f)
   })
 
-  request_url = "/upload";
+  request_url = "/api/posts/upload";
   $.ajax({
     type: 'POST',
     enctype: 'multipart/form-data',
