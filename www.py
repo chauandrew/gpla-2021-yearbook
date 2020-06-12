@@ -27,7 +27,7 @@ def seniors():
     directory = os.path.dirname(os.path.realpath(__file__))
     with open(directory + '/static/config/seniors.json', 'r') as jsonFile:
         cfg = json.load(jsonFile)
-    return render_template("seniors/seniors.html", title="seniors", seniors=cfg['seniors'])
+    return render_template("seniors/seniors.html", title="Seniors", seniors=cfg['seniors'])
 
 @www.route("/memories")
 def memories():
