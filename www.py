@@ -19,6 +19,7 @@ def index():
 def timeline():
     directory = os.path.dirname(os.path.realpath(__file__))
     events = json.loads(get_events()) # A list of events
+    events.sort(key=lambda e: e['date'])
     return render_template(f"timeline/timeline.html", title=f"Timeline", events=events)
 
 @www.route("/seniors")

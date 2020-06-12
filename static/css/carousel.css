@@ -14,7 +14,9 @@ body {
 
 /* Carousel base class */
 .carousel {
+  margin-top: 4rem;
   margin-bottom: 4rem;
+  height: -webkit-fill-available;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -32,10 +34,6 @@ body {
   left: 0;
   min-width: 100%;
   height: 32rem;
-}
-
-.carousel-hr {
-  margin-bottom: 4rem;
 }
 
 

@@ -1,0 +1,7 @@
+<div class="sidebar" style="display: none">
+    <ul class="timeline-ul">
+        {% for event in events %}
+        <li class="timeline-li"><a title="{{event.title}}" class="dot" href="#event{{loop.index}}"></a></li>
+        {% endfor %}
+    </ul>
+</div>

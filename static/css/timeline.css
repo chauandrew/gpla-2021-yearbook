@@ -1,0 +1,28 @@
+.sidebar {
+    height: 70%;
+    width: 20px;
+    position: fixed;
+    top: 25%;
+    right: 5%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-ul {
+    position:relative;
+    list-style: none;
+}
+
+.timeline-li {
+    padding: 3px 0;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: #33427c;
+    border-radius: 50%;
+    display: inline-block;
+  }

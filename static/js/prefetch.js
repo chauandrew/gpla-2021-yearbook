@@ -1,7 +1,7 @@
 prefetched = []
 
 // Prefetch urls the user hovers over
-$('a').on('mouseover', function() {
+$('a:not([href^="#"])').on('mouseover', function() {
     var href = $(this).attr("href")
     if (prefetched.includes(href) || href.includes("/static/image")) {
         return;

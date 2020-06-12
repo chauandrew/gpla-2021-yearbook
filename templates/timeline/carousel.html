@@ -1,22 +1,27 @@
-<div class="container-fluid">
+<hr id="event{{idx}}">
+<div class="container">
 	<div class="row">
 		<div class="col-md-8">
 		<!-- vertical caption placement: <div class="col-md-8 offset-md-2">-->
-			<div id="carousel{{idx}}" class="carousel slide" data-ride="carousel">
+			<div id="carousel{{idx}}" class="carousel slide" data-interval="false">
+				{% if carousel.files|length > 1 %}
 				<ol class="carousel-indicators border-dark">
-					{% for item in carousel['files'] %}
-					<li data-target="#carousel{{idx}}" data-slide-to="{{ loop.index0 }}" class="active"></li>
+					<li data-target="#carousel{{idx}}" data-slide-to="0" class="active"></li>
+					{% for item in carousel.files[1:] %}
+					<li data-target="#carousel{{idx}}" data-slide-to="{{ loop.index }}"></li>
 					{% endfor %}
 				</ol>
+				{% endif %}
 				<div class="carousel-inner border border-3 border-dark">
 					<div class="carousel-item active" id="carousel{{idx}}-slide-0">
 						<img class="carousel-img" src="{{ carousel.files[0] }}">
 					</div>
-					{% for item in carousel['files'][1:] %}
+					{% for item in carousel.files[1:] %}
 					<div class="carousel-item" id="carousel{{idx}}-slide-{{ loop.index0 + 1 }}">
 						<img class="carousel-img" src="{{ item }}" loading="lazy">
 					</div>
 					{% endfor %}
+					{% if carousel.files|length > 1 %}
 					<a class="carousel-control-prev" href="#carousel{{idx}}" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
@@ -25,6 +30,7 @@
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
