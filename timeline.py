@@ -31,6 +31,8 @@ def parse_input(args):
     for k, v in args.items():
         if isinstance(v, list) and len(v) == 1:
             args[k] = v[0]
+        if args[k] == "":
+            del args[k]
     return args
 
 
@@ -39,21 +41,23 @@ def upload_event():
     # Parse arguments
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
+    print(f"Received {args}")
     files = request.files.getlist("file")
     files = [file for file in files if file.filename != ''] # filter
     if 'date' not in args:
         return "'date' field is required"
     elif not re.match("^(19|20)\d\d-(0|1)\d-[0-3]\d$", str(args['date'])):
         return make_response("date must be valid and look like: 'YYYY-MM-DD'", 400)
-    if 'description' not in args or args['description'] == "":
+    if 'body' not in args or args['body'] == "":
         return make_response("Description field is required!", 400)
     if 'title' not in args:
-        return make_response("Post with multiple files must specify a 'title'.",400)
+        return make_response("Event must have a 'title'.",400)
     for file in files:
         _, ext = os.path.splitext(file.filename)
         if ext.lower() not in ALLOWED_EXTENSIONS:
             return make_response("File must be .gif, .jpg, .jpeg, or .png", 400)
-
+    if len(files) == 0:
+        return make_response("Event must have at least one photo", 400)
     # Write images into local filesystem
     now = str(datetime.datetime.now()).replace(' ','')
     dirname = os.path.dirname(os.path.realpath(__file__))
@@ -112,8 +116,7 @@ def background_timeline_upload():
             pass
 
 
-
-@timeline.route("/api/timeline", methods=['POST'])
+@timeline.route("/api/timeline/get", methods=['POST'])
 def get_events():
     cursor = DBCLIENT['Timeline'].find()
         # For each image, get presigned url and replace filepath with that

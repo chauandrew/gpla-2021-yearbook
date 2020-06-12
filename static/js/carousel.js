@@ -23,3 +23,4 @@ $('.carousel-control-next').on('mouseover click', function() {
 	}
 	preload(imgurls);
 });
+

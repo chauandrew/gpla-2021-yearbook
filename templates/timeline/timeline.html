@@ -6,10 +6,12 @@
   {% include 'common/metadata.html' %}
   {% endwith %}
   <link href="/static/css/carousel.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/form.css">
 </head>
 
 <body>
   {% include 'common/header.html' %}
+  {% include 'timeline/upload_event.html' %}
 
   <main role="main">
 
@@ -19,13 +21,22 @@
       <h1 class="lulo-bold color-theme">Timeline</h1>
     </div>
 
-    <!-- {# {% include 'timeline/carousel.html' %} #} -->
+    {% if not events %}
+    <h4 class="text-center font-italic">No events here yet. Make one now!</h4>
+    {% endif %}
+    {% for event in events %}
+      <hr class="carousel-hr">
+      {% with carousel=event, idx=loop.index %}
+      {% include 'timeline/carousel.html' %}
+      {% endwith %}
+    {% endfor %}
 
     </div>
   </main>
   {% include 'common/footer.html' %}
   {% include 'common/scripts.html' %}
   <script src="/static/js/carousel.js" defer></script>
+  <script src="/static/js/form.js" defer></script>
 </body>
 
 </html>

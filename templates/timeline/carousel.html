@@ -2,26 +2,26 @@
 	<div class="row">
 		<div class="col-md-8">
 		<!-- vertical caption placement: <div class="col-md-8 offset-md-2">-->
-			<div id="carousel" class="carousel slide" data-ride="carousel">
+			<div id="carousel{{idx}}" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators border-dark">
-					{% for item in carousel %}
-					<li data-target="#carousel" data-slide-to="{{ loop.index0 }}" class="active"></li>
+					{% for item in carousel['files'] %}
+					<li data-target="#carousel{{idx}}" data-slide-to="{{ loop.index0 }}" class="active"></li>
 					{% endfor %}
 				</ol>
 				<div class="carousel-inner border border-3 border-dark">
-					<div class="carousel-item active" id="carousel-slide-0">
-						<img class="carousel-img" src="{{ carousel[0].photo }}">
+					<div class="carousel-item active" id="carousel{{idx}}-slide-0">
+						<img class="carousel-img" src="{{ carousel.files[0] }}">
 					</div>
-					{% for item in carousel[1:] %}
-					<div class="carousel-item" id="carousel-slide-{{ loop.index0 + 1 }}">
-						<img class="carousel-img" src="{{ item.photo }}" loading="lazy">
+					{% for item in carousel['files'][1:] %}
+					<div class="carousel-item" id="carousel{{idx}}-slide-{{ loop.index0 + 1 }}">
+						<img class="carousel-img" src="{{ item }}" loading="lazy">
 					</div>
 					{% endfor %}
-					<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+					<a class="carousel-control-prev" href="#carousel{{idx}}" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
-					<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+					<a class="carousel-control-next" href="#carousel{{idx}}" role="button" data-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
@@ -30,11 +30,13 @@
 		</div>
 		<div class="col-md-4 d-flex">
 		<!-- vertical caption placement: <div class="col-md-4 offset-md-4 d-flex">-->
-			<div class="row justify-content-center align-self-center" style="padding: 10%;">
+			<div class="row justify-content-center align-self-center m-auto" style="padding: 10%;">
 				<div class="slide-caption">
-					<h2 class="text-center">{{ carousel[0].event }}</h2>
+					<h2 class="text-center">{{ carousel.title }}</h2>
 					<hr class="underline" width="30%">
-					<p class="text-center light">{{ carousel[0].description }}</p>
+					<p class="text-center light">{{ carousel.body }}</p>
+					<hr>
+					<span><h6 class="sansserif light text-right">{{carousel.date}}</h6></span>
 				</div>
 			</div>
 		</div>

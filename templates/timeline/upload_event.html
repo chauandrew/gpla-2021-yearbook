@@ -1,0 +1,41 @@
+<div class="modal" id="upload-modal" tabindex="-1" role="dialog" style="display: none">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title color-theme sansserif">Upload Event</h5>
+          <button type="button" class="close mr-1" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body form-group">
+          <!-- Date -->
+          <label for="modal-date">Event Date (YYYY-MM-DD)</label>
+          <input class="form-control" id="modal-date" placeholder="2019-09-28">
+          <!-- Title -->
+          <label for="modal-title">Event Name / Location</label>
+          <input class="form-control" id="modal-title" placeholder="New Student Welcome Night">
+          <!-- Files -->
+          <label for="modal-files">Photo(s)</label>
+          <span data-toggle="tooltip" data-placement="right" title="Supported file types: png, jpg, gif. Tip: you can use an online converter to convert videos to gifs!">
+            <svg class="bi bi-info-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+            </svg>
+          </span>
+          <div class="custom-file">
+            <label class="custom-file-label" for="modal-files">Choose file</label>
+            <input type="file" class="form-control-file custom-file-input" id="modal-files" multiple>
+          </div>
+          <!-- Body -->
+          <label for="modal-desc">Description</label>
+          <textarea class="form-control rounded-0" id="modal-desc" placeholder="Write a description here"
+            rows=2></textarea>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" id="modal-submit" class="btn btn-primary">Upload</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="/static/js/form.js"></script> -->

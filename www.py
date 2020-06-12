@@ -1,5 +1,6 @@
 from flask import render_template, make_response, Blueprint
 from posts import find_by_quarter, findall
+from timeline import get_events
 from config import DEBUG
 import json
 import os
@@ -12,13 +13,13 @@ Routes for GET requests
 @www.route("/")
 @www.route("/index")
 def index():
-    return render_template("index.html", title="Staff Appreciation")
+    return render_template("index.html", title="GPLA 2021 Yearbook")
 
 @www.route("/timeline")
 def timeline():
     directory = os.path.dirname(os.path.realpath(__file__))
-
-    return render_template(f"timeline/timeline.html", title=f"Timeline")
+    events = json.loads(get_events()) # A list of events
+    return render_template(f"timeline/timeline.html", title=f"Timeline", events=events)
 
 @www.route("/seniors")
 def seniors():
@@ -47,3 +48,4 @@ def memories():
             post['files'] = photo_paths
 
     return render_template(f"feed/feed.html", title=f"Memories", posts=posts)
+

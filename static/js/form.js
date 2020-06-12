@@ -1,5 +1,8 @@
 $(document).ready(function () {
   $('#upload-link').removeClass('d-none')
+  if (window.location.href.includes("timeline")) {
+    $('#upload-link').html("Create Event");
+  }
   toastr.options.closeButton = true
   toastr.options.positionClass = 'toast-bottom-right'
 })
@@ -40,7 +43,11 @@ $('#modal-submit').on('click', function () {
     data.append('file', f)
   })
 
-  request_url = "/api/posts/upload";
+  if (window.location.href.includes("memories")) {
+    var request_url = "/api/posts/upload";
+  } else if (window.location.href.includes("timeline")) {
+    var request_url = "/api/timeline/upload";
+  }
   $.ajax({
     type: 'POST',
     enctype: 'multipart/form-data',
