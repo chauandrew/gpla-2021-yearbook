@@ -1,0 +1,54 @@
+{# Experimental profile whiteboard #}
+
+<div class="col-md-4 offset-md-4">
+	<h2>{{ person.name }}</h2>
+	<h5>{{ person.fact }}</h5>
+	<img src="/{{ person.picture }}" width="300px">
+</div>
+
+<br>
+<input id="create-input" type="text">
+<button id="create-button">Make sticker</button>
+
+<div class="stickers-container">
+	<div class="sticker">
+		<p>I am a sticker</p>
+		<small>drag me!</small>
+	</div>
+</div>
+
+{# TODO: move these #}
+<style>
+	.sticker {
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		padding: 1rem;
+		border: 1px black solid;
+		background-color: white;
+	}
+</style>
+<!-- jQuery needs to be loaded before jQuery UI, can remove when moving scripts to index -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script>
+	$('.sticker').map(function (s) {
+		$(this).draggable()
+	})
+	$('#create-button').on('click', function (e) {
+		
+		text = $("#create-input").val()
+
+		// create sticker only if there is text
+		if (text != "") {
+			$(".stickers-container").append(`<div class="sticker"><p>${text}</p></div>`)
+
+			// TODO: add unique ID to sticker so draggable does not need to be called on all stickers
+			$('.sticker').map(function (s) {
+				$(this).draggable()
+			})
+
+			$("#create-input").val("")
+		}
+	})
+</script>

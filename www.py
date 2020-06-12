@@ -50,3 +50,20 @@ def memories():
 
     return render_template(f"feed/feed.html", title=f"Memories", posts=posts)
 
+@www.route("/profile/<name>")
+def profile(name):
+    directory = os.path.dirname(os.path.realpath(__file__))
+    with open(directory + '/static/config/seniors.json', 'r') as jsonFile:
+        data = json.load(jsonFile)["seniors"]
+
+    found = False
+    for p in data:
+        print(f"Name: {p['name']}, requested: {name}")
+        if p["name"].lower() == name.lower():
+            person = p
+            found = True
+    
+    if not found:
+        return make_response("Could not find person", 404)
+
+    return render_template("profile/profile.html", title=person["name"], person=person)
