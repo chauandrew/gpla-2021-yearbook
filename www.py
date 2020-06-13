@@ -59,5 +59,6 @@ def profile(name):
         return make_response("Could not find person", 404)
 
     print(profile)
+    profile['picture'] = f"/{profile['picture']}"
 
     return render_template("profile/profile.html", title=profile["name"], profile=profile)

@@ -13,9 +13,8 @@
 <div class="stickers-container">
 	<div class="sticker" id="test1">
 		<p class="sticker-text">I am a sticker</p>
-		<small>drag me!</small>
-		<br>
 		<button class="save-button">save</button>
+		<small>drag me!</small>
 	</div>
 	<!-- load existing stickers -->
 	{% for sticker in profile.stickers %}
@@ -36,24 +35,29 @@
 {# TODO: move these #}
 <style>
 	.sticker-spawn-area {
-		z-index: -100;
-		bottom: 0;
+		z-index: 20;
+		bottom: 10;
 		left: 0;
 	}
 
 	.sticker-destroy-area {
-		z-index: -100;
+		z-index: 20;
 		bottom: 0;
 		right: 0;
 	}
 
 	.sticker {
+		z-index: 30;
 		position: absolute;
 		width: 100px;
 		height: 100px;
 		padding: 1rem;
 		border: 1px black solid;
 		background-color: white;
+	}
+
+	.saved {
+		z-index: 10;
 	}
 </style>
 <!-- jQuery needs to be loaded before jQuery UI, can remove when moving scripts to index -->
@@ -76,7 +80,7 @@
 
 		// create sticker only if there is text
 		if (text != '') {
-			$('.stickers-container').append(`<div class='sticker'><p class="sticker-text">${text}</p><small>drag me!</small><br><br><button class="save-button" onClick="saveSticker($(this))">save</button></div>`)
+			$('.stickers-container').append(`<div class='sticker'><p class="sticker-text">${text}</p><button class="save-button" onClick="saveSticker($(this))">save</button><small>drag me!</small></div>`)
 
 			// TODO: add unique ID to sticker so draggable does not need to be called on all stickers
 			$('.sticker').map(function (s) {

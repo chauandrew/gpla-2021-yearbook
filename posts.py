@@ -252,17 +252,12 @@ def find_profile(name=""):
     )
 
     # TODO: handle errors
-    if result:
-        return json.dumps(result, indent=4, default=str)
-    else:
-        make_response("Not found", 404)
+    return json.dumps(result, indent=4, default=str)
 
 @posts.route('/api/profile/sticker', methods=['POST'])
 def add_sticker():
     args = request.form.to_dict(flat=False)
     args = parse_input(args)
-
-    print(args)
 
     DBCLIENT['Profiles'].update(
         {'name': args['profile']},
