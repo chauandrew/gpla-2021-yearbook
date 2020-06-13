@@ -1,5 +1,5 @@
 from flask import render_template, make_response, Blueprint
-from posts import find_by_quarter, findall
+from posts import find_by_quarter, findall, find_profile
 from timeline import get_events
 from config import DEBUG
 import json
@@ -52,18 +52,12 @@ def memories():
 
 @www.route("/profile/<name>")
 def profile(name):
-    directory = os.path.dirname(os.path.realpath(__file__))
-    with open(directory + '/static/config/seniors.json', 'r') as jsonFile:
-        data = json.load(jsonFile)["seniors"]
 
-    found = False
-    for p in data:
-        print(f"Name: {p['name']}, requested: {name}")
-        if p["name"].lower() == name.lower():
-            person = p
-            found = True
+    profile = json.loads(find_profile(name))
     
-    if not found:
+    if not profile or profile == "null":
         return make_response("Could not find person", 404)
 
-    return render_template("profile/profile.html", title=person["name"], person=person)
+    print(profile)
+
+    return render_template("profile/profile.html", title=profile["name"], profile=profile)
