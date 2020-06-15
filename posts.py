@@ -99,7 +99,6 @@ def background_post_upload():
                     object_name = f"posts/{now}/{filename}"        # object name on s3
                     
                     # compress for compatible file types
-                    # TODO: test this
                     ext = filename.split('.')[-1]
                     if ext.lower() in COMPRESSABLE_EXTENSIONS:
                         source = tinify.from_file(path) # compress
@@ -214,6 +213,75 @@ def add_comment():
     else:
         return make_response('Added comment successfully', 200)
 
-
 bkgd_upload = threading.Thread(name='upload', target=background_post_upload)
 bkgd_upload.start()
+
+
+
+# experimental profile routes
+
+@posts.route('/api/profile/create', methods=['POST'])
+def add_profile():
+    args = request.form.to_dict(flat=False)
+    args = parse_input(args)
+
+    DBCLIENT['Profiles'].update(
+        {'name': args['name']},
+        {
+            'name': args['name'],
+            'fact': args['fact'],
+            'picture': args['picture'],
+            'stickers': []
+        },
+        upsert=True
+    )
+
+    # TODO: handle errors
+
+    return make_response('Created profile successfully', 200)
+
+@posts.route('/api/profile', methods=['POST'])
+def find_profile(name=""):
+    if not name:
+        args = request.form.to_dict(flat=False)
+        args = parse_input(args)
+        name = args['name']
+
+    result = DBCLIENT['Profiles'].find_one(
+        {'name': re.compile(name, re.IGNORECASE)}
+    )
+
+    # TODO: handle errors
+    return json.dumps(result, indent=4, default=str)
+
+@posts.route('/api/profile/sticker', methods=['POST'])
+def add_sticker():
+    args = request.form.to_dict(flat=False)
+    args = parse_input(args)
+
+    DBCLIENT['Profiles'].update(
+        {'name': args['profile']},
+        {'$push': {'stickers': args}}
+    )
+
+    # TODO: handle errors
+
+    return make_response('Added sticker successfully', 200)
+
+'''
+# script to add seniors.json data to Profiles table
+directory = os.path.dirname(os.path.realpath(__file__))
+with open(directory + '/static/config/seniors.json', 'r') as jsonFile:
+    data = json.load(jsonFile)["seniors"]
+for p in data:
+    DBCLIENT['Profiles'].update(
+    {'name': p['name']},
+    {
+        'name': p['name'],
+        'fact': p['fact'],
+        'picture': p['picture'],
+        'stickers': []
+    },
+    upsert=True
+)
+'''

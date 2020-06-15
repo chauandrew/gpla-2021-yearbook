@@ -17,7 +17,7 @@
 		<h6 class="card-text sansserif light">{{ post.body }}</h6>
 		{# show author if text post, also show event if photo/album post #}
 		{% if post.files %}
-			<small class="float-right">Captured at {{ post.title }} by {{ post.author }}</small>
+			<small class="float-right">{{ post.date[5:7].lstrip("0") + "/" + post.date[8:10].lstrip("0") }} &#9642; Captured at {{ post.title }} by {{ post.author }}</small>
 		{% else %}
 			<small class="float-right">By {{ post.author }}</small>
 		{% endif %}
