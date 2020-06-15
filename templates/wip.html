@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% with title=title %}
+  {% include 'common/metadata.html' %}
+  {% endwith %}
+  <!-- Custom styles for this template -->
+  <link href="/static/css/seniors.css" rel="stylesheet" />
+</head>
+
+<body>
+  {% include 'common/header.html' %}
+  <!-- Top Text -->
+  <main role="main">
+    <div class="container text-center mt-5 pt-5">
+      <h2 class="lulo-thin">Coming Soon</h2>
+      <hr class="underline" width="10%">
+      <span class="sansserif">This page is currently under construction</span>
+    </div>
+  </main>
+  {% include 'common/footer.html' %}
+  {% include 'common/scripts.html' %}
+</body>
+
+</html>
