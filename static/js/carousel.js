@@ -8,19 +8,28 @@ function preload(urls) {
 }
 
 var preloaded = [];
+var timeout;
 $('.carousel-control-next').on('mouseover click', function() {
-	var slideid = $('.carousel-item.active').attr('id').replace("carousel-slide-", "");
-	slideid = Number(slideid) + 1
-	var imgurls = []
-	var n = $('.carousel-item').length
-	for (var i = 0; i < 3; i++) { 
-		var id = slideid + i % n;
-		if (!preloaded.includes(id)) {
-			console.log("preloading", id)
-			preloaded.push(id);
-			imgurls.push($(`#carousel-slide-${id}`).children('img').attr('src'));
-		}
+	if (timeout) {
+		window.clearTimeout(timeout);
 	}
-	preload(imgurls);
+	timeout = window.setTimeout( function() {
+		var imgurls = []
+		try {
+			next = $(this).parent().find('.active').next();
+			id = next.attr('id').replace("#carousel", "").replace("slide", "");
+			if (!preloaded.includes(id)) {
+				preloaded.push(id)
+				imgurls.push(next.children('img').attr('src'));
+			} 
+			next2 = next.next()
+			id2 = next2.attr('id').replace("#carousel", "").replace("slide", "");
+			if (!preloaded.includes(id2)) {
+				preloaded.push(id2)
+				imgurls.push(next2.children('img').attr('src'));
+			} 
+		} catch {}
+		console.log(imgurls);
+		preload(imgurls);
+	}.bind(this), 100);
 });
-

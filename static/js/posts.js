@@ -54,6 +54,3 @@ $(window).scroll( function(){
         }
     }, 250);
 });
-
-// window.onscroll = function() {
-// }
