@@ -1,4 +1,4 @@
-from flask import render_template, make_response, Blueprint
+from flask import render_template, make_response, Blueprint, request
 from posts import find_by_quarter, findall, find_profile
 from timeline import get_events
 from config import DEBUG
@@ -6,6 +6,15 @@ import json
 import os
 
 www = Blueprint('www', __name__)
+
+# Turn single length arrays into standalone objects (in a dictionary)
+def parse_input(args):
+    for k, v in args.items():
+        if isinstance(v, list) and len(v) == 1:
+            args[k] = v[0]
+        if args[k] == "":
+            del args[k]
+    return args
 
 """
 Routes for GET requests
@@ -33,21 +42,26 @@ def seniors():
 @www.route("/memories")
 def memories():
     directory = os.path.dirname(os.path.realpath(__file__))
+    args = request.form.to_dict(flat=False)
+    args = parse_input(args)
+    if 'page' in args:
+        pgnum = int(args['page'])
+    else:
+        pgnum = 0
 
-    posts = json.loads(findall())
+    posts = json.loads(findall(pgnum))
 
     # process the posts, append additional info if needed
-    for post in posts:
-        if not post['author']: post['author'] = "Anonymous"
+    # for post in posts:
         # strip aws link for testimages
-        if DEBUG:
-            photo_paths = []
-            for photo in post['files']:
-                if "testimage" in photo:
-                    photo_paths.append(photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0])
-                else:
-                    photo_paths.append(photo)
-            post['files'] = photo_paths
+        # if DEBUG:
+        #     photo_paths = []
+        #     for photo in post['files']:
+        #         if "testimage" in photo:
+        #             photo_paths.append(photo.replace("https://staff-appreciation.s3.amazonaws.com/", "").split('?')[0])
+        #         else:
+        #             photo_paths.append(photo)
+        #     post['files'] = photo_paths
 
     return render_template(f"feed/feed.html", title=f"Memories", posts=posts)
 

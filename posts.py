@@ -1,4 +1,4 @@
-from config import DBCLIENT, UPLOAD_FOLDER, COMPRESSION_KEY
+from config import DBCLIENT, UPLOAD_FOLDER, COMPRESSION_KEY, DEBUG
 from config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, S3_BUCKET
 
 from flask import request, jsonify, render_template, make_response, Blueprint
@@ -18,7 +18,7 @@ from time import sleep
 
 posts = Blueprint('posts', __name__)
 
-PAGE_SIZE=3
+PAGE_SIZE=6
 ALLOWED_EXTENSIONS = ['.jpg', '.png', '.jpeg', '.gif']
 COMPRESSABLE_EXTENSIONS = ['.jpg', '.png', '.jpeg']
 TO_UPLOAD = []
@@ -172,25 +172,37 @@ def remove():
     doc['success'] = True
     return json.dumps(doc, default=str)
 
-""" Testing API Routes """
-
 # Returns all posts
 @posts.route('/api/posts/findall', methods=['POST'])
-def findall():
+def findall(page=0):
+    args = request.form.to_dict(flat=False)
+    args = parse_input(args)
     cursor = DBCLIENT['Posts'].find()
-        # For each image, get presigned url and replace filepath with that
+    cursor.sort('date', pymongo.ASCENDING)
+
+    # Pagination
+    if 'page' in args:
+        page = int(args['page'])
+    front = page * PAGE_SIZE
+
     response = []
-    for doc in cursor:
+    # For each image, get presigned url and replace filepath with that
+    for doc in cursor[front:front + PAGE_SIZE]:
         buckets = []
+        
         for file in doc['files']:
-            url = s3_client.generate_presigned_url('get_object', 
-                Params={'Bucket':S3_BUCKET, 'Key': file},
-                ExpiresIn=3600
-            )
-            buckets.append(url)
+            if DEBUG and 'testimage' in file:
+                buckets.append(file)
+            else:
+                url = s3_client.generate_presigned_url('get_object', 
+                    Params={'Bucket':S3_BUCKET, 'Key': file},
+                    ExpiresIn=3600
+                )
+                buckets.append(url)
         doc['files'] = buckets
-        response.append(doc)
-    return json.dumps(response, indent=4, default=str)
+        if not doc['author']: doc['author'] = "Anonymous"
+        response.append(render_template("post/post.html", post=doc))
+    return json.dumps(response, default=str)
 
 
 @posts.route('/api/posts/comment', methods=['POST'])
