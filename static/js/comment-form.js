@@ -31,7 +31,7 @@ $('.comment-form').on('submit', function (e) {
 
 		$.ajax({
 			type: 'POST',
-			url: '/comment',
+			url: '/api/posts/comment',
 			data: {
 				postid: postid,
 				body: body
