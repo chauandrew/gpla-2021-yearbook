@@ -21,4 +21,4 @@ s3transfer==0.3.3
 six==1.15.0
 tinify==1.5.1
 urllib3==1.26.5
-Werkzeug==1.0.1
+Werkzeug==2.2.3
